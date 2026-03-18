@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import logoSvg from './assets/logo.svg'
+import quantChart from './assets/quant_chart.jpg'
+import withdrawalHistory from './assets/withdrawal_history.jpg'
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, BarChart, Bar
@@ -72,6 +74,102 @@ function ChartTooltip({ active, payload, label }) {
     <div style={{ background: '#0f172a', border: '1px solid #334155', borderRadius: 8, padding: '8px 14px' }}>
       <p style={{ color: '#94a3b8', fontSize: 11, marginBottom: 4 }}>{label}</p>
       <p style={{ color: '#3b82f6', fontWeight: 700, fontSize: 14 }}>{fmtKRW(payload[0].value)}</p>
+    </div>
+  )
+}
+
+// ─────────────────────────────────────────────────────
+//  PNL 라인 차트
+// ─────────────────────────────────────────────────────
+const PNL_TABS = ['1D', '7D', '30D']
+
+// 2월16일 ~ 3월15일 28개 데이터 (이미지 참조)
+const PNL_RAW = [
+  { d: '2/16', v: 9200 }, { d: '2/17', v: 8800 }, { d: '2/18', v: 8400 },
+  { d: '2/19', v: 8100 }, { d: '2/20', v: 7600 }, { d: '2/21', v: 8300 },
+  { d: '2/22', v: 9100 }, { d: '2/23', v: 9800 }, { d: '2/24', v: 9300 },
+  { d: '2/25', v: 8700 }, { d: '2/26', v: 9500 }, { d: '2/27', v: 10200 },
+  { d: '2/28', v: 9600 }, { d: '3/01', v: 7200 }, { d: '3/02', v: 6800 },
+  { d: '3/03', v: 814  }, { d: '3/04', v: 5400 }, { d: '3/05', v: 8900 },
+  { d: '3/06', v: 11200}, { d: '3/07', v: 14500}, { d: '3/08', v: 18000},
+  { d: '3/09', v: 21000}, { d: '3/10', v: 25000}, { d: '3/11', v: 28500},
+  { d: '3/12', v: 31000}, { d: '3/13', v: 34200}, { d: '3/14', v: 36931},
+  { d: '3/15', v: 12000},
+]
+
+function PNLChart() {
+  const [tab, setTab] = useState(2) // 기본 30D
+
+  const slices = { 0: PNL_RAW.slice(-1), 1: PNL_RAW.slice(-7), 2: PNL_RAW }
+  const data = slices[tab]
+  const maxV = Math.max(...data.map(d => d.v))
+  const minV = Math.min(...data.map(d => d.v))
+  const maxItem = data.find(d => d.v === maxV)
+  const minItem = data.find(d => d.v === minV)
+
+  const fmtUSD = (v) => '$' + v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+
+  return (
+    <div style={S.card}>
+      {/* 헤더 */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
+        <div style={S.secTitle}><span style={{ ...S.dot, background: '#ef4444' }} />코인 PNL 그래프</div>
+        <div style={{ display: 'flex', gap: 4 }}>
+          {PNL_TABS.map((t, i) => (
+            <button key={t} onClick={() => setTab(i)} style={{
+              padding: '4px 14px', borderRadius: 6, fontSize: 12, fontWeight: 700,
+              cursor: 'pointer', border: '1px solid',
+              background: tab === i ? '#1e293b' : 'transparent',
+              color: tab === i ? '#f1f5f9' : '#475569',
+              borderColor: tab === i ? '#334155' : 'transparent',
+            }}>{t}</button>
+          ))}
+        </div>
+      </div>
+
+      {/* 고저점 표시 */}
+      <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 20, marginBottom: 8 }}>
+        <span style={{ fontSize: 12, color: '#ef4444', fontWeight: 700 }}>
+          ▲ {fmtUSD(maxV)} <span style={{ color: '#475569', fontWeight: 400 }}>({maxItem?.d})</span>
+        </span>
+        <span style={{ fontSize: 12, color: '#22c55e', fontWeight: 700 }}>
+          ▼ {fmtUSD(minV)} <span style={{ color: '#475569', fontWeight: 400 }}>({minItem?.d})</span>
+        </span>
+      </div>
+
+      {/* 차트 */}
+      <div style={{ height: 220, minWidth: 0, overflow: 'hidden' }}>
+        <ResponsiveContainer width="100%" height="100%">
+          <AreaChart data={data} margin={{ top: 10, right: 8, left: 0, bottom: 0 }}>
+            <defs>
+              <linearGradient id="pnlGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%"  stopColor="#ef4444" stopOpacity={0.25} />
+                <stop offset="95%" stopColor="#ef4444" stopOpacity={0} />
+              </linearGradient>
+            </defs>
+            <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+            <XAxis dataKey="d" tick={{ fill: '#475569', fontSize: 10 }} tickLine={false} axisLine={false} />
+            <YAxis
+              tick={{ fill: '#475569', fontSize: 10 }} tickLine={false} axisLine={false}
+              tickFormatter={v => '$' + (v >= 1000 ? (v/1000).toFixed(0)+'K' : v)}
+              width={52}
+            />
+            <Tooltip
+              formatter={v => [fmtUSD(v), 'PNL']}
+              contentStyle={{ background: '#0f172a', border: '1px solid #334155', borderRadius: 8 }}
+              labelStyle={{ color: '#94a3b8', fontSize: 11 }}
+              itemStyle={{ color: '#ef4444', fontWeight: 700 }}
+            />
+            <Area
+              type="monotone" dataKey="v"
+              stroke="#ef4444" strokeWidth={2.5}
+              fill="url(#pnlGrad)"
+              dot={false}
+              activeDot={{ r: 5, fill: '#ef4444', strokeWidth: 0 }}
+            />
+          </AreaChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   )
 }
@@ -185,11 +283,14 @@ export default function App() {
       {/* ──── NAV ──── */}
       <header style={S.header}>
         <div style={S.headerInner}>
-          <a href="#" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
-            <img src={logoSvg} alt="비트라인" style={{ height: 40 }} />
+          <a href="#" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
+            <img src="/favicon.svg" alt="비트라인 아이콘" style={{ height: 34 }} />
+            <span style={{ fontSize: '1.4rem', fontWeight: 900, letterSpacing: '-0.5px', color: '#f1f5f9' }}>
+              비트<span style={{ color: '#ef4444' }}>라인</span>
+            </span>
           </a>
           <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-            <button style={S.btnRed}>문의하기</button>
+            <button style={S.btnRed}>신청하기</button>
           </div>
         </div>
       </header>
@@ -242,7 +343,7 @@ export default function App() {
 
 
       {/* ──── DB 수집 폼 ──── */}
-      <DBForm />
+      <div id="apply-form"><DBForm /></div>
 
       {/* ──── 프로모 배너 ──── */}
       <PromoBanner />
@@ -253,72 +354,20 @@ export default function App() {
         {/* 중앙: 차트 */}
         <div style={S.colCenter}>
 
-          {/* BTC / ETH 차트 */}
-          {COINS.slice(0, 2).map(c => <CoinChart key={c.sym} coin={c} />)}
+          {/* PNL 라인 차트 */}
+          <PNLChart />
 
-          {/* 수익률 막대 차트 */}
+          {/* 퀀트 트레이딩 차트 */}
           <div style={S.card}>
-            <div style={S.secTitle}><span style={{ ...S.dot, background: '#3b82f6' }} />코인별 수익률 비교</div>
-            <div style={{ display: 'flex', gap: 12, marginBottom: 16, flexWrap: 'wrap' }}>
-              {[
-                { label: '24시간', color: '#3b82f6' },
-                { label: '7일',    color: '#22c55e' },
-                { label: '30일',   color: '#f59e0b' },
-              ].map(l => (
-                <div key={l.label} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: '#94a3b8' }}>
-                  <span style={{ width: 10, height: 10, borderRadius: 2, background: l.color, display: 'inline-block' }} />
-                  {l.label}
-                </div>
-              ))}
+            <div style={S.secTitle}>
+              <span style={{ ...S.dot, background: '#3b82f6' }} />전문가 퀀트 트레이딩 포지션 지표
             </div>
-            <ResponsiveContainer width="100%" height={220}>
-              <BarChart data={returnData} margin={{ top: 4, right: 4, left: 0, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-                <XAxis dataKey="name" tick={{ fill: '#475569', fontSize: 11 }} tickLine={false} axisLine={false} />
-                <YAxis tick={{ fill: '#475569', fontSize: 11 }} tickLine={false} axisLine={false}
-                  tickFormatter={v => v + '%'} width={40} />
-                <Tooltip formatter={(v, n) => [v.toFixed(2) + '%', n]} contentStyle={{ background: '#0f172a', border: '1px solid #334155', borderRadius: 8 }} labelStyle={{ color: '#94a3b8' }} itemStyle={{ color: '#e2e8f0' }} />
-                <Bar dataKey="d1"  name="24시간" fill="#3b82f6" radius={[3, 3, 0, 0]} />
-                <Bar dataKey="d7"  name="7일"    fill="#22c55e" radius={[3, 3, 0, 0]} />
-                <Bar dataKey="d30" name="30일"   fill="#f59e0b" radius={[3, 3, 0, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-
-          {/* 코인 테이블 */}
-          <div style={S.card}>
-            <div style={S.secTitle}><span style={{ ...S.dot, background: '#3b82f6' }} />전체 시세 현황</div>
-            <div style={{ overflowX: 'auto' }}>
-              <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                <thead>
-                  <tr>
-                    {['#', '코인', '현재가', '24시간', '7일', '30일', '시가총액'].map(h => (
-                      <th key={h} style={S.th}>{h}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {COINS.map((c, idx) => (
-                    <tr key={c.sym} style={S.tr}>
-                      <td style={{ ...S.td, color: '#475569', width: 36 }}>{idx + 1}</td>
-                      <td style={S.td}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                          <div style={{ ...S.iconSm, background: c.accent + '22', color: c.accent }}>{c.icon}</div>
-                          <div>
-                            <div style={{ fontWeight: 700, fontSize: 14 }}>{c.name}</div>
-                            <div style={{ color: '#475569', fontSize: 11 }}>{c.sym}</div>
-                          </div>
-                        </div>
-                      </td>
-                      <td style={{ ...S.td, fontWeight: 700 }}>{fmtKRW(c.base)}</td>
-                      <td style={S.td}><Pill v={c.d1} /></td>
-                      <td style={S.td}><Pill v={c.d7} /></td>
-                      <td style={S.td}><Pill v={c.d30} /></td>
-                      <td style={{ ...S.td, color: '#64748b', fontSize: 13 }}>{c.cap}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+            <div style={{ borderRadius: 10, overflow: 'hidden', border: '1px solid #1e293b' }}>
+              <img
+                src={quantChart}
+                alt="전문가 퀀트 트레이딩 포지션 지표"
+                style={{ width: '100%', display: 'block' }}
+              />
             </div>
           </div>
         </div>
@@ -326,49 +375,30 @@ export default function App() {
         {/* 우측: 사이드바 */}
         <aside style={S.sidebar}>
 
-          {/* 급등 TOP 5 */}
+          {/* 전문가 출금 이력 */}
           <div style={S.card}>
-            <div style={S.secTitle}><span style={{ ...S.dot, background: '#22c55e' }} />급등 TOP 5</div>
-            {[...COINS].sort((a, b) => b.d1 - a.d1).slice(0, 5).map((c, i) => (
-              <div key={c.sym} style={{ ...S.row, borderTop: i === 0 ? 'none' : '1px solid #1e293b' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 9 }}>
-                  <span style={{ color: '#475569', fontSize: 12, minWidth: 16 }}>{i + 1}</span>
-                  <div style={{ ...S.iconSm, background: c.accent + '22', color: c.accent }}>{c.icon}</div>
-                  <div>
-                    <div style={{ fontWeight: 700, fontSize: 13 }}>{c.name}</div>
-                    <div style={{ color: '#475569', fontSize: 11 }}>{c.sym}</div>
-                  </div>
-                </div>
-                <div style={{ textAlign: 'right' }}>
-                  <div style={{ fontWeight: 600, fontSize: 13 }}>{fmtKRW(c.base)}</div>
-                  <div style={{ color: '#22c55e', fontWeight: 700, fontSize: 13 }}>▲ +{c.d1.toFixed(2)}%</div>
-                </div>
-              </div>
-            ))}
+            <div style={S.secTitle}>
+              <span style={{ ...S.dot, background: '#22c55e' }} />전문가의 1월 ~ 3월 출금 이력
+            </div>
+            <div style={{ borderRadius: 8, overflow: 'hidden', border: '1px solid #1e293b' }}>
+              <img
+                src={withdrawalHistory}
+                alt="전문가의 1월 ~ 3월 출금 이력"
+                style={{ width: '100%', display: 'block' }}
+              />
+            </div>
           </div>
-
-          {/* 뉴스 */}
-          <div style={S.card}>
-            <div style={S.secTitle}><span style={{ ...S.dot, background: '#f59e0b' }} />최신 뉴스</div>
-            {NEWS.map((n, i) => (
-              <div key={i} style={{ ...S.newsItem, borderTop: i === 0 ? 'none' : '1px solid #1e293b' }}>
-                <span style={{ ...S.tag, background: n.cc + '22', color: n.cc }}>{n.cat}</span>
-                <p style={{ fontSize: 13, fontWeight: 600, lineHeight: 1.5, margin: '6px 0 4px', color: '#e2e8f0' }}>
-                  {n.title}
-                </p>
-                <span style={{ color: '#475569', fontSize: 11 }}>{n.time}</span>
-              </div>
-            ))}
-          </div>
-
-          {/* SOL 차트 컴팩트 */}
-          <CoinChart coin={COINS[2]} compact />
 
           {/* 프로모 배너 */}
           <div style={S.promoBanner}>
-            <div style={{ fontSize: 13, color: '#94a3b8', marginBottom: 6 }}>🎁 신규 가입 혜택</div>
-            <div style={{ fontWeight: 800, fontSize: 17, marginBottom: 8 }}>프리미엄 분석 리포트<br />30일 무료 제공</div>
-            <button style={{ ...S.btnRed, width: '100%', padding: '10px 0' }}>지금 받기</button>
+            <div style={{ fontSize: 13, color: '#94a3b8', marginBottom: 10 }}>🎁 비트라인 혜택</div>
+            <div style={{ fontWeight: 800, fontSize: 19, lineHeight: 1.5, marginBottom: 16 }}>
+              전문가 투자 노하우<br />3일 무료 제공
+            </div>
+            <button
+              style={{ ...S.btnRed, width: '100%', padding: '12px 0', fontSize: 15, borderRadius: 9 }}
+              onClick={() => document.getElementById('apply-form')?.scrollIntoView({ behavior: 'smooth' })}
+            >신청하기</button>
           </div>
 
         </aside>
@@ -401,7 +431,7 @@ export default function App() {
           지금 바로 시작하세요
         </h2>
         <p style={{ color: '#94a3b8', marginBottom: 28, fontSize: 15 }}>
-          185만 회원이 선택한 코인 정보 플랫폼 — 비트라인
+          1만 회원이 선택한 코인 정보 플랫폼 — 비트라인
         </p>
         <button style={{ ...S.heroBtnPrimary, fontSize: 16, padding: '14px 48px' }}>
           무료로 시작하기
@@ -414,7 +444,12 @@ export default function App() {
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
           padding: '0 48px', height: 66, maxWidth: 1440, margin: '0 auto',
         }}>
-          <img src={logoSvg} alt="비트라인" style={{ height: 36 }} />
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <img src="/favicon.svg" alt="비트라인 아이콘" style={{ height: 30 }} />
+            <span style={{ fontSize: '1.3rem', fontWeight: 900, letterSpacing: '-0.5px', color: '#f1f5f9' }}>
+              비트<span style={{ color: '#ef4444' }}>라인</span>
+            </span>
+          </div>
           <div style={{ display: 'flex', gap: 28 }}>
             {['실시간 시세', '수익률 분석', '코인 차트', '뉴스', '이용약관', '개인정보처리방침'].map(m => (
               <a key={m} href="#" style={{ color: '#475569', textDecoration: 'none', fontSize: 13 }}>{m}</a>
