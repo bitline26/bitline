@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import logoSvg from './assets/logo.svg'
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, BarChart, Bar
@@ -184,17 +185,11 @@ export default function App() {
       {/* ──── NAV ──── */}
       <header style={S.header}>
         <div style={S.headerInner}>
-          <a href="#" style={S.logo}>
-            비트<span style={{ color: '#ef4444' }}>라인</span>
+          <a href="#" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+            <img src={logoSvg} alt="비트라인" style={{ height: 40 }} />
           </a>
-          <nav style={S.navLinks}>
-            {['시세', '수익률', '차트', '뉴스', '분석리포트', '고객센터'].map(m => (
-              <a key={m} href="#" style={S.navA}>{m}</a>
-            ))}
-          </nav>
           <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-            <button style={S.btnGhost}>로그인</button>
-            <button style={S.btnRed}>시작하기</button>
+            <button style={S.btnRed}>문의하기</button>
           </div>
         </div>
       </header>
@@ -217,23 +212,22 @@ export default function App() {
       {/* ──── HERO ──── */}
       <section style={S.hero}>
         <div style={S.heroGlow} />
-        <div style={S.heroContent}>
-          <div style={S.heroBadge}>🔥 실시간 코인 수익률 분석 서비스</div>
-          <h1 style={S.heroH1}>
+        <div style={{ ...S.heroContent, textAlign: 'center', margin: '0 auto' }}>
+          <div style={{ ...S.heroBadge, margin: '0 auto 20px' }}>🔥 실시간 코인 수익률 분석 서비스</div>
+          <h1 style={{ ...S.heroH1, textAlign: 'center' }}>
             코인 시장의 모든 정보,<br />
             <span style={S.heroRed}>비트라인</span>에서 한눈에
           </h1>
-          <p style={S.heroSub}>
+          <p style={{ ...S.heroSub, textAlign: 'center' }}>
             실시간 시세 · 수익률 분석 · 최신 뉴스 · AI 동향 리포트<br />
             전문 트레이더가 선택하는 암호화폐 정보 플랫폼
           </p>
-          <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
             <button style={S.heroBtnPrimary}>지금 무료로 시작하기</button>
-            <button style={S.heroBtnSec}>수익률 분석 보기 →</button>
           </div>
 
           {/* 실시간 BTC 배너 */}
-          <div style={S.btcBanner}>
+          <div style={{ ...S.btcBanner, margin: '32px auto 0' }}>
             <span style={{ color: '#f7931a', fontWeight: 800, fontSize: 18 }}>₿</span>
             <span style={{ fontWeight: 700, fontSize: 14 }}>BTC / KRW</span>
             <span style={{ fontWeight: 900, fontSize: 20 }}>{fmtKRW(btcLive)}</span>
@@ -246,6 +240,12 @@ export default function App() {
         </div>
       </section>
 
+
+      {/* ──── DB 수집 폼 ──── */}
+      <DBForm />
+
+      {/* ──── 프로모 배너 ──── */}
+      <PromoBanner />
 
       {/* ──── 메인 3단 ──── */}
       <div style={S.mainWrap}>
@@ -409,32 +409,18 @@ export default function App() {
       </section>
 
       {/* ──── FOOTER ──── */}
-      <footer style={S.footer}>
-        <div style={S.footerTop}>
-          <div>
-            <div style={{ ...S.logo, fontSize: 22, marginBottom: 10 }}>
-              비트<span style={{ color: '#ef4444' }}>라인</span>
-            </div>
-            <p style={{ color: '#475569', fontSize: 13, lineHeight: 1.7, maxWidth: 280 }}>
-              암호화폐 시세 및 수익률 정보 서비스.<br />
-              본 서비스는 투자 권유가 아닙니다.
-            </p>
+      <footer style={{ background: 'rgba(6,13,31,0.97)', borderTop: '1px solid #0f172a' }}>
+        <div style={{
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          padding: '0 48px', height: 66, maxWidth: 1440, margin: '0 auto',
+        }}>
+          <img src={logoSvg} alt="비트라인" style={{ height: 36 }} />
+          <div style={{ display: 'flex', gap: 28 }}>
+            {['실시간 시세', '수익률 분석', '코인 차트', '뉴스', '이용약관', '개인정보처리방침'].map(m => (
+              <a key={m} href="#" style={{ color: '#475569', textDecoration: 'none', fontSize: 13 }}>{m}</a>
+            ))}
           </div>
-          {[
-            { title: '서비스', links: ['실시간 시세', '수익률 분석', '코인 차트', '뉴스'] },
-            { title: '회사',   links: ['회사소개', '이용약관', '개인정보처리방침', '고객센터'] },
-          ].map(col => (
-            <div key={col.title}>
-              <div style={{ fontWeight: 700, fontSize: 14, marginBottom: 14, color: '#e2e8f0' }}>{col.title}</div>
-              {col.links.map(l => (
-                <div key={l} style={{ color: '#475569', fontSize: 13, marginBottom: 10, cursor: 'pointer' }}>{l}</div>
-              ))}
-            </div>
-          ))}
-        </div>
-        <div style={S.footerBot}>
-          <span>© 2026 비트라인. All rights reserved.</span>
-          <span style={{ color: '#334155' }}>투자에는 위험이 따릅니다. 신중하게 결정하세요.</span>
+          <span style={{ color: '#334155', fontSize: 12 }}>© 2026 비트라인. 투자에는 위험이 따릅니다.</span>
         </div>
       </footer>
 
@@ -445,6 +431,214 @@ export default function App() {
 
 // ─────────────────────────────────────────────────────
 //  뱃지
+// ─────────────────────────────────────────────────────
+//  프로모 배너
+// ─────────────────────────────────────────────────────
+function PromoBanner() {
+  return (
+    <div style={{ padding: '0 48px 36px', maxWidth: 1440, margin: '0 auto' }}>
+      <div style={{
+        position: 'relative', overflow: 'hidden', borderRadius: 20,
+        background: 'linear-gradient(135deg, #0a1a6e 0%, #1a3aad 40%, #0d6efd 70%, #0891b2 100%)',
+        padding: '52px 60px', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        minHeight: 280,
+      }}>
+
+        {/* 배경 캔들차트 장식 (SVG) */}
+        <svg style={{ position: 'absolute', right: 0, bottom: 0, opacity: 0.12 }} width="500" height="280" viewBox="0 0 500 280">
+          {[40,90,150,210,270,330,390,450].map((x, i) => {
+            const heights = [80,120,60,150,90,130,70,110]
+            const tops = [100,60,140,50,110,70,130,90]
+            return (
+              <g key={i}>
+                <line x1={x} y1={tops[i] - 20} x2={x} y2={tops[i] + heights[i] + 20} stroke="white" strokeWidth="2"/>
+                <rect x={x - 10} y={tops[i]} width="20" height={heights[i]} rx="2" fill="white"/>
+              </g>
+            )
+          })}
+        </svg>
+
+        {/* 배경 격자선 */}
+        <svg style={{ position: 'absolute', inset: 0, opacity: 0.06 }} width="100%" height="100%">
+          {[0,1,2,3,4].map(i => (
+            <line key={i} x1="0" y1={i * 70} x2="100%" y2={i * 70} stroke="white" strokeWidth="1"/>
+          ))}
+        </svg>
+
+        {/* 왼쪽 텍스트 */}
+        <div style={{ position: 'relative', zIndex: 2 }}>
+          <div style={{
+            fontSize: 13, fontWeight: 700, color: '#93c5fd',
+            marginBottom: 12, letterSpacing: 2, textTransform: 'uppercase',
+          }}>🔥 BITLINE SPECIAL</div>
+
+          <div style={{
+            fontSize: 48, fontWeight: 900, lineHeight: 1.15,
+            color: 'white', marginBottom: 8,
+            textShadow: '0 2px 20px rgba(0,0,0,0.3)',
+          }}>
+            가자!<br />
+            <span style={{
+              background: 'linear-gradient(90deg, #ffffff, #93c5fd)',
+              WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+            }}>코인 10만 달러!!</span>
+          </div>
+
+          <div style={{
+            fontSize: 22, fontWeight: 800, color: '#fbbf24',
+            marginBottom: 20, textShadow: '0 0 20px rgba(251,191,36,0.5)',
+          }}>
+            지금이 수익의 기회!!
+          </div>
+
+          <div style={{ fontSize: 15, color: '#bfdbfe', lineHeight: 1.8, marginBottom: 30 }}>
+            비트라인 전문가의 급등 예상 코인 정보!!<br />
+            <strong style={{ color: 'white' }}>무료 체험으로 확인해 보세요!!</strong>
+          </div>
+
+          <button style={{
+            background: 'linear-gradient(135deg, #dc2626, #be123c)',
+            color: 'white', border: 'none', padding: '14px 36px',
+            borderRadius: 10, fontSize: 16, fontWeight: 900, cursor: 'pointer',
+            boxShadow: '0 4px 24px rgba(220,38,38,.5)',
+            letterSpacing: '-0.3px',
+          }}>
+            급등 코인 무료로 받기 →
+          </button>
+        </div>
+
+        {/* 오른쪽 상승 화살표 SVG */}
+        <div style={{ position: 'relative', zIndex: 2, flexShrink: 0 }}>
+          <svg width="300" height="240" viewBox="0 0 300 240" fill="none">
+            {/* 글로우 라인 */}
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="4" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <polyline points="20,200 70,160 110,175 160,120 200,140 260,60"
+              stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"
+              opacity="0.5" filter="url(#glow)"/>
+
+            {/* 굵은 상승 화살표 */}
+            <polyline points="30,210 90,170 130,188 185,128 230,150 280,55"
+              stroke="url(#arrowGrad)" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round"/>
+
+            {/* 화살촉 */}
+            <polygon points="280,55 255,50 268,75" fill="#ec4899"/>
+
+            {/* 데이터 포인트 원 */}
+            {[[90,170],[130,188],[185,128],[230,150]].map(([x,y],i) => (
+              <circle key={i} cx={x} cy={y} r="5" fill="white" opacity="0.8"/>
+            ))}
+            <circle cx="280" cy="55" r="8" fill="#ec4899"/>
+
+            <defs>
+              <linearGradient id="arrowGrad" x1="30" y1="210" x2="280" y2="55" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stopColor="#60a5fa"/>
+                <stop offset="60%" stopColor="#a855f7"/>
+                <stop offset="100%" stopColor="#ec4899"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+
+      </div>
+    </div>
+  )
+}
+
+// ─────────────────────────────────────────────────────
+//  DB 수집 폼
+// ─────────────────────────────────────────────────────
+function DBForm() {
+  const [form, setForm] = useState({ name: '', phone: '', agreePrivacy: false, agreeMarketing: false })
+  const [done, setDone] = useState(false)
+  const set = (k, v) => setForm(p => ({ ...p, [k]: v }))
+
+  const submit = (e) => {
+    e.preventDefault()
+    if (!form.name || !form.phone) { alert('성함과 연락처를 입력해주세요.'); return }
+    if (!form.agreePrivacy) { alert('개인정보 수집·이용에 동의해주세요.'); return }
+    setDone(true)
+  }
+
+  if (done) return (
+    <div style={FS.wrap}>
+      <div style={FS.card}>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ fontSize: 40, marginBottom: 12 }}>✅</div>
+          <div style={{ fontWeight: 900, fontSize: 20 }}>신청 완료!</div>
+          <div style={{ color: '#94a3b8', fontSize: 14, marginTop: 8 }}>입력하신 연락처로 곧 안내드리겠습니다.</div>
+        </div>
+      </div>
+    </div>
+  )
+
+  return (
+    <div style={FS.wrap}>
+      <div style={FS.card}>
+        <div style={FS.title}>
+          비트라인 전문가 <span style={{ color: '#ef4444' }}>VIP 시점·정보</span> 5일간 무료 공개 <span style={{ color: '#fbbf24' }}>100명 선착순</span>
+        </div>
+
+        <form onSubmit={submit} style={FS.form}>
+          <input style={FS.input} placeholder="이름" value={form.name}
+            onChange={e => set('name', e.target.value)} />
+          <input style={FS.input} placeholder="연락처  010-0000-0000" value={form.phone}
+            onChange={e => set('phone', e.target.value)} />
+          <button type="submit" style={FS.btn}>급등 코인 정보 무료받기</button>
+        </form>
+
+        <div style={FS.checks}>
+          <label style={FS.chkLabel}>
+            <input type="checkbox" checked={form.agreePrivacy} style={FS.chk}
+              onChange={e => set('agreePrivacy', e.target.checked)} />
+            개인정보 수집·이용 동의 <span style={{ color: '#ef4444' }}>(필수)</span>
+          </label>
+          <label style={FS.chkLabel}>
+            <input type="checkbox" checked={form.agreeMarketing} style={FS.chk}
+              onChange={e => set('agreeMarketing', e.target.checked)} />
+            마케팅 정보 수신 동의 <span style={{ color: '#ef4444' }}>(필수)</span>
+          </label>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+const FS = {
+  wrap: { padding: '0 48px 36px', maxWidth: 1440, margin: '0 auto' },
+  card: {
+    background: '#0d1a2e',
+    border: '1.5px solid #1e3a5f',
+    borderRadius: 18,
+    padding: '32px 40px',
+    boxShadow: '0 0 40px rgba(59,130,246,.07)',
+  },
+  title: {
+    fontSize: 22, fontWeight: 900, textAlign: 'center',
+    marginBottom: 24, lineHeight: 1.4,
+  },
+  form: {
+    display: 'flex', gap: 12, alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap',
+    marginBottom: 16,
+  },
+  input: {
+    background: '#060d1f', border: '1px solid #1e293b', borderRadius: 8,
+    padding: '13px 18px', color: '#e2e8f0', fontSize: 15, outline: 'none',
+    width: 210, flexShrink: 0,
+  },
+  btn: {
+    background: 'linear-gradient(135deg,#dc2626,#991b1b)',
+    color: '#fff', border: 'none', padding: '13px 28px',
+    borderRadius: 8, fontSize: 15, fontWeight: 800, cursor: 'pointer',
+    boxShadow: '0 4px 16px rgba(220,38,38,.4)', whiteSpace: 'nowrap',
+  },
+  checks: { display: 'flex', gap: 24, justifyContent: 'center', flexWrap: 'wrap' },
+  chkLabel: { display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, color: '#94a3b8', cursor: 'pointer' },
+  chk: { accentColor: '#ef4444', cursor: 'pointer', width: 15, height: 15 },
+}
+
 // ─────────────────────────────────────────────────────
 function Pill({ v }) {
   const up = v >= 0
@@ -481,9 +675,9 @@ const S = {
   tickerChip: { display: 'inline-flex', alignItems: 'center', gap: 10, fontSize: 13 },
 
   // hero
-  hero: { padding: '90px 48px 70px', position: 'relative', overflow: 'hidden', background: 'linear-gradient(180deg,#060d1f 0%,#080f22 100%)' },
-  heroGlow: { position: 'absolute', top: -100, left: '40%', transform: 'translateX(-50%)', width: 700, height: 700, background: 'radial-gradient(circle, rgba(220,38,38,.12) 0%, transparent 65%)', pointerEvents: 'none' },
-  heroContent: { maxWidth: 680, position: 'relative' },
+  hero: { padding: '90px 48px 70px', position: 'relative', overflow: 'hidden', background: 'linear-gradient(180deg,#060d1f 0%,#080f22 100%)', display: 'flex', flexDirection: 'column', alignItems: 'center' },
+  heroGlow: { position: 'absolute', top: -100, left: '50%', transform: 'translateX(-50%)', width: 700, height: 700, background: 'radial-gradient(circle, rgba(220,38,38,.12) 0%, transparent 65%)', pointerEvents: 'none' },
+  heroContent: { maxWidth: 720, position: 'relative', width: '100%' },
   heroBadge: { display: 'inline-block', background: 'rgba(220,38,38,.15)', color: '#fca5a5', border: '1px solid rgba(220,38,38,.3)', borderRadius: 20, padding: '5px 16px', fontSize: 12, fontWeight: 600, marginBottom: 20 },
   heroH1: { fontSize: '2.9rem', fontWeight: 900, lineHeight: 1.2, marginBottom: 18, letterSpacing: '-1px' },
   heroRed: { color: '#ef4444' },
