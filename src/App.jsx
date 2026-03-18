@@ -85,16 +85,34 @@ const PNL_TABS = ['1D', '7D', '30D']
 
 // 2월16일 ~ 3월15일 28개 데이터 (이미지 참조)
 const PNL_RAW = [
-  { d: '2/16', v: 9200 }, { d: '2/17', v: 8800 }, { d: '2/18', v: 8400 },
-  { d: '2/19', v: 8100 }, { d: '2/20', v: 7600 }, { d: '2/21', v: 8300 },
-  { d: '2/22', v: 9100 }, { d: '2/23', v: 9800 }, { d: '2/24', v: 9300 },
-  { d: '2/25', v: 8700 }, { d: '2/26', v: 9500 }, { d: '2/27', v: 10200 },
-  { d: '2/28', v: 9600 }, { d: '3/01', v: 7200 }, { d: '3/02', v: 6800 },
-  { d: '3/03', v: 814  }, { d: '3/04', v: 5400 }, { d: '3/05', v: 8900 },
-  { d: '3/06', v: 11200}, { d: '3/07', v: 14500}, { d: '3/08', v: 18000},
-  { d: '3/09', v: 21000}, { d: '3/10', v: 25000}, { d: '3/11', v: 28500},
-  { d: '3/12', v: 31000}, { d: '3/13', v: 34200}, { d: '3/14', v: 36931},
-  { d: '3/15', v: 12000},
+  { d: '02/16', v: 9800  },
+  { d: '02/17', v: 9400  },
+  { d: '02/18', v: 9100  },
+  { d: '02/19', v: 8700  },
+  { d: '02/20', v: 8200  },
+  { d: '02/21', v: 8900  },
+  { d: '02/22', v: 9600  },
+  { d: '02/23', v: 10100 },
+  { d: '02/24', v: 9700  },
+  { d: '02/25', v: 10400 },
+  { d: '02/26', v: 10900 },
+  { d: '02/27', v: 11200 },
+  { d: '02/28', v: 10600 },
+  { d: '03/01', v: 8900  },
+  { d: '03/02', v: 7400  },
+  { d: '03/03', v: 6200  },
+  { d: '03/04', v: 8100  },
+  { d: '03/05', v: 10800 },
+  { d: '03/06', v: 13500 },
+  { d: '03/07', v: 16900 },
+  { d: '03/08', v: 20400 },
+  { d: '03/09', v: 24100 },
+  { d: '03/10', v: 27600 },
+  { d: '03/11', v: 30800 },
+  { d: '03/12', v: 33400 },
+  { d: '03/13', v: 35200 },
+  { d: '03/14', v: 36931.56 },
+  { d: '03/15', v: 814.45  },
 ]
 
 function PNLChart() {
@@ -138,34 +156,36 @@ function PNLChart() {
       </div>
 
       {/* 차트 */}
-      <div style={{ height: 220, minWidth: 0, overflow: 'hidden' }}>
+      <div style={{ height: 220, minWidth: 0, overflow: 'hidden', background: '#0a1628', borderRadius: 8 }}>
         <ResponsiveContainer width="100%" height="100%">
-          <AreaChart data={data} margin={{ top: 10, right: 8, left: 0, bottom: 0 }}>
+          <AreaChart data={data} margin={{ top: 10, right: 8, left: 0, bottom: 0 }}
+            style={{ background: '#0a1628' }}>
             <defs>
               <linearGradient id="pnlGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%"  stopColor="#ef4444" stopOpacity={0.25} />
-                <stop offset="95%" stopColor="#ef4444" stopOpacity={0} />
+                <stop offset="5%"  stopColor="#ef4444" stopOpacity={0.3} />
+                <stop offset="95%" stopColor="#ef4444" stopOpacity={0.02} />
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-            <XAxis dataKey="d" tick={{ fill: '#475569', fontSize: 10 }} tickLine={false} axisLine={false} />
+            <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+            <XAxis dataKey="d" tick={{ fill: '#334155', fontSize: 10 }} tickLine={false} axisLine={{ stroke: '#1e293b' }} />
             <YAxis
-              tick={{ fill: '#475569', fontSize: 10 }} tickLine={false} axisLine={false}
+              tick={{ fill: '#334155', fontSize: 10 }} tickLine={false} axisLine={false}
               tickFormatter={v => '$' + (v >= 1000 ? (v/1000).toFixed(0)+'K' : v)}
               width={52}
             />
             <Tooltip
               formatter={v => [fmtUSD(v), 'PNL']}
-              contentStyle={{ background: '#0f172a', border: '1px solid #334155', borderRadius: 8 }}
-              labelStyle={{ color: '#94a3b8', fontSize: 11 }}
+              contentStyle={{ background: '#0d1626', border: '1px solid #1e293b', borderRadius: 8 }}
+              labelStyle={{ color: '#64748b', fontSize: 11 }}
               itemStyle={{ color: '#ef4444', fontWeight: 700 }}
+              cursor={{ stroke: '#334155', strokeWidth: 1 }}
             />
             <Area
               type="monotone" dataKey="v"
-              stroke="#ef4444" strokeWidth={2.5}
+              stroke="#ef4444" strokeWidth={2.2}
               fill="url(#pnlGrad)"
               dot={false}
-              activeDot={{ r: 5, fill: '#ef4444', strokeWidth: 0 }}
+              activeDot={{ r: 4, fill: '#ef4444', strokeWidth: 0 }}
             />
           </AreaChart>
         </ResponsiveContainer>
