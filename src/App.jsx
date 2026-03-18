@@ -512,11 +512,11 @@ function PromoBanner() {
             color: 'white', marginBottom: 8,
             textShadow: '0 2px 20px rgba(0,0,0,0.3)',
           }}>
-            가자!<br />
+            비트코인<br />
             <span style={{
               background: 'linear-gradient(90deg, #ffffff, #93c5fd)',
               WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
-            }}>코인 10만 달러!!</span>
+            }}>1000% 수익률 목표방!!</span>
           </div>
 
           <div style={{
