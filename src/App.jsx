@@ -594,6 +594,9 @@ function DBForm() {
     e.preventDefault()
     if (!form.name || !form.phone) { alert('성함과 연락처를 입력해주세요.'); return }
     if (!form.agreePrivacy) { alert('개인정보 수집·이용에 동의해주세요.'); return }
+    const prev = JSON.parse(localStorage.getItem('bitline_submissions') || '[]')
+    const entry = { ...form, id: Date.now(), createdAt: new Date().toLocaleString('ko-KR') }
+    localStorage.setItem('bitline_submissions', JSON.stringify([entry, ...prev]))
     setDone(true)
   }
 
