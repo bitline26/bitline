@@ -273,27 +273,6 @@ export default function App() {
         <div style={S.heroGlow} />
         <div style={{ display: 'flex', alignItems: 'center', width: '100%', gap: 0, justifyContent: 'space-between' }}>
 
-          {/* 왼쪽: 겹치는 이미지 3장 — 왼쪽 끝 밀착 */}
-          <div style={{ position: 'relative', width: 720, height: 900, flexShrink: 0 }}>
-            <img src={trade1} alt="수익 이력1" style={{
-              position: 'absolute', top: 0, left: 0,
-              width: 504, borderRadius: 18,
-              boxShadow: '0 16px 48px rgba(0,0,0,0.7)',
-              border: '1px solid #1e293b', zIndex: 1,
-            }} />
-            <img src={trade2} alt="수익 이력2" style={{
-              position: 'absolute', top: 220, left: 200,
-              width: 504, borderRadius: 18,
-              boxShadow: '0 16px 48px rgba(0,0,0,0.7)',
-              border: '1px solid #1e293b', zIndex: 2,
-            }} />
-            <img src={trade3} alt="수익 이력3" style={{
-              position: 'absolute', top: 480, left: 30,
-              width: 504, borderRadius: 18,
-              boxShadow: '0 16px 48px rgba(0,0,0,0.7)',
-              border: '1px solid #1e293b', zIndex: 3,
-            }} />
-          </div>
 
           {/* 가운데: 텍스트 */}
           <div style={{ ...S.heroContent, textAlign: 'center', margin: '0 auto', flex: '0 0 auto', width: 480, padding: '0' }}>
