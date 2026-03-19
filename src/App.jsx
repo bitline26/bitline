@@ -299,14 +299,46 @@ export default function App() {
             </div>
           </div>
 
-          {/* 오른쪽 50%: 1~3번 설명 — 오른쪽 끝 정렬 */}
-          <div style={{ flex: '0 0 50%', display: 'flex', flexDirection: 'column', gap: 40, padding: '0 0 0 60px', alignItems: 'flex-end' }}>
+          {/* 오른쪽 50%: 1~3번 설명 — 오른쪽 끝 정렬 + 장식 배경 */}
+          <div style={{ flex: '0 0 50%', position: 'relative', display: 'flex', flexDirection: 'column', gap: 40, padding: '0 0 0 60px', alignItems: 'flex-end' }}>
+
+            {/* 장식 SVG — 뒤에 깔기 */}
+            <svg style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 0 }} viewBox="0 0 500 500" preserveAspectRatio="xMidYMid slice">
+              <defs>
+                <radialGradient id="rg1" cx="80%" cy="20%" r="50%">
+                  <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.12"/>
+                  <stop offset="100%" stopColor="#3b82f6" stopOpacity="0"/>
+                </radialGradient>
+                <radialGradient id="rg2" cx="70%" cy="80%" r="45%">
+                  <stop offset="0%" stopColor="#6366f1" stopOpacity="0.10"/>
+                  <stop offset="100%" stopColor="#6366f1" stopOpacity="0"/>
+                </radialGradient>
+              </defs>
+              {/* 글로우 원 */}
+              <rect width="500" height="500" fill="url(#rg1)"/>
+              <rect width="500" height="500" fill="url(#rg2)"/>
+              {/* 격자선 */}
+              {[0,1,2,3,4,5,6].map(i => (
+                <line key={`h${i}`} x1="0" y1={i*80} x2="500" y2={i*80} stroke="#3b82f6" strokeWidth="0.4" strokeOpacity="0.12"/>
+              ))}
+              {[0,1,2,3,4,5,6].map(i => (
+                <line key={`v${i}`} x1={i*80} y1="0" x2={i*80} y2="500" stroke="#3b82f6" strokeWidth="0.4" strokeOpacity="0.12"/>
+              ))}
+              {/* 큰 원 테두리 */}
+              <circle cx="420" cy="80" r="120" stroke="#3b82f6" strokeWidth="0.6" strokeOpacity="0.15" fill="none"/>
+              <circle cx="420" cy="80" r="70" stroke="#3b82f6" strokeWidth="0.4" strokeOpacity="0.10" fill="none"/>
+              <circle cx="100" cy="420" r="90" stroke="#6366f1" strokeWidth="0.6" strokeOpacity="0.12" fill="none"/>
+              {/* 대각선 */}
+              <line x1="300" y1="0" x2="500" y2="200" stroke="#3b82f6" strokeWidth="0.5" strokeOpacity="0.10"/>
+              <line x1="350" y1="0" x2="500" y2="150" stroke="#3b82f6" strokeWidth="0.5" strokeOpacity="0.08"/>
+            </svg>
+
             {[
               { num: '01', title: '비트라인 VIP 혜택', desc: '비트라인 전문가만의 독점 VIP 정보와 혜택을 지금 바로 무료로 경험하세요.' },
               { num: '02', title: '전문가 시그널', desc: '비트라인 전문가 2가지 타입 시그널 제공\n(실시간 대응 단타방 / 단체로 대응 스윙방)' },
               { num: '03', title: '전문가 뉴스방', desc: '비트라인 전문가가 직접 파악한 시장 정보와 핵심 뉴스를 무료로 제공합니다.' },
             ].map((item) => (
-              <div key={item.num} style={{ borderRight: '4px solid #3b82f6', paddingRight: 24, textAlign: 'right', maxWidth: 360 }}>
+              <div key={item.num} style={{ position: 'relative', zIndex: 1, borderRight: '4px solid #3b82f6', paddingRight: 24, textAlign: 'right', maxWidth: 360 }}>
                 <div style={{ fontSize: 13, fontWeight: 800, color: '#3b82f6', letterSpacing: 2, marginBottom: 6 }}>{item.num}</div>
                 <div style={{ fontWeight: 800, fontSize: 20, marginBottom: 8, color: '#f1f5f9' }}>{item.title}</div>
                 <div style={{ fontSize: 14, color: '#94a3b8', lineHeight: 1.8, whiteSpace: 'pre-line' }}>{item.desc}</div>
