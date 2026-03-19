@@ -296,7 +296,7 @@ export default function App() {
           </div>
 
           {/* 가운데: 텍스트 */}
-          <div style={{ ...S.heroContent, textAlign: 'center', margin: '0', flex: 1, padding: '0 40px' }}>
+          <div style={{ ...S.heroContent, textAlign: 'center', margin: '0 auto', flex: '0 0 auto', width: 480, padding: '0' }}>
             <div style={{ ...S.heroBadge, marginBottom: 20, display: 'inline-block' }}>🔥 실시간 코인 수익률 분석 서비스</div>
             <h1 style={{ ...S.heroH1, textAlign: 'center' }}>
               코인 시장의 모든 정보,<br />
@@ -321,32 +321,17 @@ export default function App() {
             </div>
           </div>
 
-          {/* 오른쪽: 3가지 혜택 설명 — 오른쪽 끝 밀착, 균등 분배 */}
-          <div style={{ flexShrink: 0, width: 420, padding: '0 48px 0 0', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignSelf: 'stretch' }}>
+          {/* 오른쪽: 3가지 혜택 설명 */}
+          <div style={{ flexShrink: 0, width: 360, padding: '0 48px 0 0', display: 'flex', flexDirection: 'column', gap: 32 }}>
             {[
-              {
-                num: '01',
-                title: '비트라인 VIP 혜택',
-                desc: '비트라인 전문가만의 독점 VIP 정보와 혜택을 지금 바로 무료로 경험하세요.',
-                color: '#ef4444',
-              },
-              {
-                num: '02',
-                title: '전문가 시그널',
-                desc: '비트라인 전문가 2가지 타입 시그널 제공\n(실시간 대응 단타방 / 단체로 대응 스윙방)',
-                color: '#3b82f6',
-              },
-              {
-                num: '03',
-                title: '전문가 뉴스방',
-                desc: '비트라인 전문가가 직접 파악한 시장 정보와 핵심 뉴스를 무료로 제공합니다.',
-                color: '#22c55e',
-              },
+              { num: '01', title: '비트라인 VIP 혜택', desc: '비트라인 전문가만의 독점 VIP 정보와 혜택을 지금 바로 무료로 경험하세요.' },
+              { num: '02', title: '전문가 시그널', desc: '비트라인 전문가 2가지 타입 시그널 제공\n(실시간 대응 단타방 / 단체로 대응 스윙방)' },
+              { num: '03', title: '전문가 뉴스방', desc: '비트라인 전문가가 직접 파악한 시장 정보와 핵심 뉴스를 무료로 제공합니다.' },
             ].map((item) => (
-              <div key={item.num} style={{ borderLeft: `4px solid ${item.color}`, paddingLeft: 24 }}>
-                <div style={{ fontSize: 17, fontWeight: 800, color: item.color, letterSpacing: 2, marginBottom: 9 }}>{item.num}</div>
-                <div style={{ fontWeight: 800, fontSize: 22, marginBottom: 12, color: '#f1f5f9' }}>{item.title}</div>
-                <div style={{ fontSize: 16, color: '#64748b', lineHeight: 1.8, whiteSpace: 'pre-line' }}>{item.desc}</div>
+              <div key={item.num} style={{ borderLeft: '4px solid #3b82f6', paddingLeft: 20 }}>
+                <div style={{ fontSize: 13, fontWeight: 800, color: '#3b82f6', letterSpacing: 2, marginBottom: 6 }}>{item.num}</div>
+                <div style={{ fontWeight: 800, fontSize: 18, marginBottom: 8, color: '#f1f5f9' }}>{item.title}</div>
+                <div style={{ fontSize: 14, color: '#94a3b8', lineHeight: 1.8, whiteSpace: 'pre-line' }}>{item.desc}</div>
               </div>
             ))}
           </div>
