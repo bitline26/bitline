@@ -274,23 +274,23 @@ export default function App() {
         <div style={{ maxWidth: 1600, margin: '0 auto', padding: '0 0 0 0', display: 'flex', alignItems: 'center', width: '100%', gap: 0 }}>
 
           {/* 왼쪽: 겹치는 이미지 3장 — 왼쪽 끝 밀착 */}
-          <div style={{ position: 'relative', width: 460, height: 520, flexShrink: 0 }}>
+          <div style={{ position: 'relative', width: 690, height: 780, flexShrink: 0 }}>
             <img src={trade1} alt="수익 이력1" style={{
               position: 'absolute', top: 0, left: 0,
-              width: 336, borderRadius: 14,
-              boxShadow: '0 12px 40px rgba(0,0,0,0.7)',
+              width: 504, borderRadius: 18,
+              boxShadow: '0 16px 48px rgba(0,0,0,0.7)',
               border: '1px solid #1e293b', zIndex: 1,
             }} />
             <img src={trade2} alt="수익 이력2" style={{
-              position: 'absolute', top: 84, left: 126,
-              width: 336, borderRadius: 14,
-              boxShadow: '0 12px 40px rgba(0,0,0,0.7)',
+              position: 'absolute', top: 126, left: 189,
+              width: 504, borderRadius: 18,
+              boxShadow: '0 16px 48px rgba(0,0,0,0.7)',
               border: '1px solid #1e293b', zIndex: 2,
             }} />
             <img src={trade3} alt="수익 이력3" style={{
-              position: 'absolute', top: 217, left: 28,
-              width: 336, borderRadius: 14,
-              boxShadow: '0 12px 40px rgba(0,0,0,0.7)',
+              position: 'absolute', top: 325, left: 42,
+              width: 504, borderRadius: 18,
+              boxShadow: '0 16px 48px rgba(0,0,0,0.7)',
               border: '1px solid #1e293b', zIndex: 3,
             }} />
           </div>
@@ -322,7 +322,7 @@ export default function App() {
           </div>
 
           {/* 오른쪽: 3가지 혜택 설명 */}
-          <div style={{ flexShrink: 0, width: 280, padding: '0 40px 0 0', display: 'flex', flexDirection: 'column', gap: 28 }}>
+          <div style={{ flexShrink: 0, width: 420, padding: '0 48px 0 0', display: 'flex', flexDirection: 'column', gap: 42 }}>
             {[
               {
                 num: '01',
@@ -343,10 +343,10 @@ export default function App() {
                 color: '#22c55e',
               },
             ].map((item) => (
-              <div key={item.num} style={{ borderLeft: `3px solid ${item.color}`, paddingLeft: 16 }}>
-                <div style={{ fontSize: 11, fontWeight: 800, color: item.color, letterSpacing: 2, marginBottom: 6 }}>{item.num}</div>
-                <div style={{ fontWeight: 800, fontSize: 15, marginBottom: 8, color: '#f1f5f9' }}>{item.title}</div>
-                <div style={{ fontSize: 13, color: '#64748b', lineHeight: 1.7, whiteSpace: 'pre-line' }}>{item.desc}</div>
+              <div key={item.num} style={{ borderLeft: `4px solid ${item.color}`, paddingLeft: 24 }}>
+                <div style={{ fontSize: 17, fontWeight: 800, color: item.color, letterSpacing: 2, marginBottom: 9 }}>{item.num}</div>
+                <div style={{ fontWeight: 800, fontSize: 22, marginBottom: 12, color: '#f1f5f9' }}>{item.title}</div>
+                <div style={{ fontSize: 16, color: '#64748b', lineHeight: 1.8, whiteSpace: 'pre-line' }}>{item.desc}</div>
               </div>
             ))}
           </div>
