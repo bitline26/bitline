@@ -299,14 +299,14 @@ export default function App() {
             </div>
           </div>
 
-          {/* 오른쪽 50%: 1~3번 설명 — 오른쪽 정렬, 균등 분배 */}
-          <div style={{ flex: '0 0 50%', display: 'flex', flexDirection: 'column', gap: 40, padding: '0 0 0 60px', borderLeft: '1px solid #1e293b' }}>
+          {/* 오른쪽 50%: 1~3번 설명 — 오른쪽 끝 정렬 */}
+          <div style={{ flex: '0 0 50%', display: 'flex', flexDirection: 'column', gap: 40, padding: '0 0 0 60px', alignItems: 'flex-end' }}>
             {[
               { num: '01', title: '비트라인 VIP 혜택', desc: '비트라인 전문가만의 독점 VIP 정보와 혜택을 지금 바로 무료로 경험하세요.' },
               { num: '02', title: '전문가 시그널', desc: '비트라인 전문가 2가지 타입 시그널 제공\n(실시간 대응 단타방 / 단체로 대응 스윙방)' },
               { num: '03', title: '전문가 뉴스방', desc: '비트라인 전문가가 직접 파악한 시장 정보와 핵심 뉴스를 무료로 제공합니다.' },
             ].map((item) => (
-              <div key={item.num} style={{ borderLeft: '4px solid #3b82f6', paddingLeft: 24 }}>
+              <div key={item.num} style={{ borderRight: '4px solid #3b82f6', paddingRight: 24, textAlign: 'right', maxWidth: 360 }}>
                 <div style={{ fontSize: 13, fontWeight: 800, color: '#3b82f6', letterSpacing: 2, marginBottom: 6 }}>{item.num}</div>
                 <div style={{ fontWeight: 800, fontSize: 20, marginBottom: 8, color: '#f1f5f9' }}>{item.title}</div>
                 <div style={{ fontSize: 14, color: '#94a3b8', lineHeight: 1.8, whiteSpace: 'pre-line' }}>{item.desc}</div>
