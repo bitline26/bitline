@@ -244,7 +244,7 @@ export default function App() {
           <a href="#" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
             <img src="/favicon.svg" alt="비트라인 아이콘" style={{ height: 34 }} />
             <span style={{ fontSize: '1.4rem', fontWeight: 900, letterSpacing: '-0.5px', color: '#f1f5f9' }}>
-              비트<span style={{ color: '#ef4444' }}>라인</span>
+              비트라인
             </span>
           </a>
           <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
@@ -284,9 +284,9 @@ export default function App() {
             <div style={{ flex: '0 0 50%', padding: '56px 52px' }}>
                 <div>
                 <div style={{ ...S.heroBadge, marginBottom: 20, display: 'inline-block' }}>🔥 실시간 코인 수익률 분석 서비스</div>
-                <h1 style={{ ...S.heroH1, textAlign: 'left' }}>
+                <h1 style={{ ...S.heroH1, textAlign: 'left', fontSize: '2rem' }}>
                   코인 시장의 모든 정보,<br />
-                  <span style={S.heroRed}>비트라인</span>에서 한눈에
+                  <span style={{ ...S.heroRed, fontSize: '3.4rem' }}>비트라인</span>에서 한눈에
                 </h1>
                 <p style={{ ...S.heroSub, textAlign: 'left' }}>
                   실시간 시세 · 수익률 분석 · 최신 뉴스 · AI 동향 리포트<br />
@@ -436,7 +436,7 @@ export default function App() {
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             <img src="/favicon.svg" alt="비트라인 아이콘" style={{ height: 30 }} />
             <span style={{ fontSize: '1.3rem', fontWeight: 900, letterSpacing: '-0.5px', color: '#f1f5f9' }}>
-              비트<span style={{ color: '#ef4444' }}>라인</span>
+              비트라인
             </span>
           </div>
           <div style={{ display: 'flex', gap: 28 }}>
