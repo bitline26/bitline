@@ -274,7 +274,66 @@ export default function App() {
         <div style={{ display: 'flex', alignItems: 'center', width: '100%', padding: '0 64px', gap: 0, boxSizing: 'border-box' }}>
 
           {/* 왼쪽 50%: 메인 텍스트 — 왼쪽 정렬 */}
-          <div style={{ ...S.heroContent, flex: '0 0 50%', textAlign: 'left', margin: 0, padding: '0 60px 0 0' }}>
+          <div style={{ ...S.heroContent, flex: '0 0 50%', textAlign: 'left', margin: 0, padding: '0 60px 0 0', position: 'relative' }}>
+
+            {/* 장식 SVG — 텍스트 뒤 */}
+            <svg style={{ position: 'absolute', top: -60, left: -80, width: '110%', height: '110%', pointerEvents: 'none', zIndex: 0, opacity: 0.55 }} viewBox="0 0 560 480" fill="none">
+              <defs>
+                <linearGradient id="chartGrad" x1="0" y1="380" x2="460" y2="60" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.2"/>
+                  <stop offset="100%" stopColor="#a855f7" stopOpacity="0.5"/>
+                </linearGradient>
+                <linearGradient id="lineGrad" x1="0" y1="380" x2="460" y2="60" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stopColor="#3b82f6"/>
+                  <stop offset="100%" stopColor="#a855f7"/>
+                </linearGradient>
+                <filter id="glow2">
+                  <feGaussianBlur stdDeviation="3" result="blur"/>
+                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+              </defs>
+
+              {/* 가로 그리드 */}
+              {[80,160,240,320,400].map((y,i) => (
+                <line key={i} x1="0" y1={y} x2="560" y2={y} stroke="#3b82f6" strokeWidth="0.5" strokeOpacity="0.15"/>
+              ))}
+
+              {/* 캔들스틱 */}
+              {[
+                {x:40,  o:340, c:280, h:260, l:360, up:true },
+                {x:90,  o:280, c:310, h:270, l:325, up:false},
+                {x:140, o:310, c:230, h:210, l:320, up:true },
+                {x:190, o:230, c:260, h:215, l:270, up:false},
+                {x:240, o:260, c:190, h:170, l:275, up:true },
+                {x:290, o:190, c:220, h:175, l:230, up:false},
+                {x:340, o:220, c:150, h:130, l:230, up:true },
+                {x:390, o:150, c:170, h:135, l:180, up:false},
+                {x:440, o:170, c:100, h:80,  l:180, up:true },
+              ].map((c, i) => (
+                <g key={i}>
+                  <line x1={c.x} y1={c.h} x2={c.x} y2={c.l} stroke={c.up ? '#22c55e' : '#ef4444'} strokeWidth="1.5" strokeOpacity="0.5"/>
+                  <rect x={c.x-10} y={Math.min(c.o,c.c)} width="20" height={Math.abs(c.o-c.c)||4} rx="2"
+                    fill={c.up ? '#22c55e' : '#ef4444'} fillOpacity="0.25"
+                    stroke={c.up ? '#22c55e' : '#ef4444'} strokeWidth="1" strokeOpacity="0.5"/>
+                </g>
+              ))}
+
+              {/* 상승 추세선 */}
+              <polyline
+                points="40,340 90,300 140,240 190,200 240,180 290,155 340,130 390,100 460,70"
+                stroke="url(#lineGrad)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+                filter="url(#glow2)"
+              />
+              {/* 면적 채우기 */}
+              <polygon
+                points="40,340 90,300 140,240 190,200 240,180 290,155 340,130 390,100 460,70 460,420 40,420"
+                fill="url(#chartGrad)"
+              />
+              {/* 끝점 글로우 */}
+              <circle cx="460" cy="70" r="6" fill="#a855f7" opacity="0.9" filter="url(#glow2)"/>
+              <circle cx="460" cy="70" r="12" fill="#a855f7" opacity="0.15"/>
+            </svg>
+            <div style={{ position: 'relative', zIndex: 1 }}>
             <div style={{ ...S.heroBadge, marginBottom: 20, display: 'inline-block' }}>🔥 실시간 코인 수익률 분석 서비스</div>
             <h1 style={{ ...S.heroH1, textAlign: 'left' }}>
               코인 시장의 모든 정보,<br />
@@ -297,6 +356,7 @@ export default function App() {
               <span style={{ ...S.liveDot }} />
               <span style={{ color: '#64748b', fontSize: 12 }}>실시간</span>
             </div>
+            </div>{/* zIndex wrapper 닫기 */}
           </div>
 
           {/* 오른쪽 50%: 1~3번 설명 — 오른쪽 끝 정렬 + 장식 배경 */}
