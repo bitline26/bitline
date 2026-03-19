@@ -284,9 +284,8 @@ export default function App() {
             <div style={{ flex: '0 0 50%', padding: '56px 52px' }}>
                 <div>
                 <div style={{ ...S.heroBadge, marginBottom: 20, display: 'inline-block' }}>🔥 실시간 코인 수익률 분석 서비스</div>
-                <h1 style={{ ...S.heroH1, textAlign: 'left' }}>
-                  코인 시장의 모든 정보,<br />
-                  <span style={S.heroRed}>비트라인</span>에서 한눈에
+                <h1 style={{ ...S.heroH1, textAlign: 'left', fontSize: '2.2rem' }}>
+                  코인 시장의 모든 정보, <span style={{ ...S.heroRed, fontSize: '3.2rem' }}>비트라인</span>에서 한눈에
                 </h1>
                 <p style={{ ...S.heroSub, textAlign: 'left' }}>
                   실시간 시세 · 수익률 분석 · 최신 뉴스 · AI 동향 리포트<br />
