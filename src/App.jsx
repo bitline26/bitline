@@ -271,141 +271,88 @@ export default function App() {
       {/* ──── HERO ──── */}
       <section style={S.hero}>
         <div style={S.heroGlow} />
-        <div style={{ display: 'flex', alignItems: 'center', width: '100%', padding: '0 64px', gap: 0, boxSizing: 'border-box' }}>
+        {/* 중앙 카드 박스 */}
+        <div style={{ maxWidth: 1200, margin: '0 auto', width: '100%', padding: '0 48px', boxSizing: 'border-box' }}>
+          <div style={{
+            display: 'flex', alignItems: 'center', gap: 0,
+            background: 'rgba(10,22,40,0.7)', border: '1px solid #1e293b',
+            borderRadius: 24, overflow: 'hidden',
+            backdropFilter: 'blur(8px)',
+          }}>
 
-          {/* 왼쪽 50%: 메인 텍스트 — 왼쪽 정렬 */}
-          <div style={{ ...S.heroContent, flex: '0 0 50%', textAlign: 'left', margin: 0, padding: '0 60px 0 0', position: 'relative' }}>
+            {/* 왼쪽 50%: 메인 텍스트 */}
+            <div style={{ flex: '0 0 50%', padding: '56px 52px', position: 'relative', overflow: 'hidden' }}>
+              {/* 캔들차트 장식 SVG */}
+              <svg style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none', opacity: 0.45 }} viewBox="0 0 500 420" fill="none" preserveAspectRatio="xMidYMid slice">
+                <defs>
+                  <linearGradient id="chartGrad" x1="0" y1="380" x2="460" y2="40" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.15"/>
+                    <stop offset="100%" stopColor="#a855f7" stopOpacity="0.35"/>
+                  </linearGradient>
+                  <linearGradient id="lineGrad" x1="0" y1="380" x2="460" y2="40" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stopColor="#3b82f6"/>
+                    <stop offset="100%" stopColor="#a855f7"/>
+                  </linearGradient>
+                  <filter id="glow2"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                </defs>
+                {[80,160,240,320].map((y,i) => <line key={i} x1="0" y1={y} x2="500" y2={y} stroke="#3b82f6" strokeWidth="0.5" strokeOpacity="0.12"/>)}
+                {[{x:40,o:340,c:280,h:260,l:360,up:true},{x:90,o:280,c:310,h:270,l:325,up:false},{x:140,o:310,c:230,h:210,l:320,up:true},{x:190,o:230,c:260,h:215,l:270,up:false},{x:240,o:260,c:190,h:170,l:275,up:true},{x:290,o:190,c:220,h:175,l:230,up:false},{x:340,o:220,c:150,h:130,l:230,up:true},{x:390,o:150,c:170,h:135,l:180,up:false},{x:440,o:170,c:100,h:80,l:180,up:true}].map((c,i)=>(
+                  <g key={i}>
+                    <line x1={c.x} y1={c.h} x2={c.x} y2={c.l} stroke={c.up?'#22c55e':'#ef4444'} strokeWidth="1.5" strokeOpacity="0.45"/>
+                    <rect x={c.x-10} y={Math.min(c.o,c.c)} width="20" height={Math.abs(c.o-c.c)||4} rx="2" fill={c.up?'#22c55e':'#ef4444'} fillOpacity="0.2" stroke={c.up?'#22c55e':'#ef4444'} strokeWidth="1" strokeOpacity="0.45"/>
+                  </g>
+                ))}
+                <polyline points="40,340 90,300 140,240 190,200 240,180 290,155 340,130 390,100 460,60" stroke="url(#lineGrad)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" filter="url(#glow2)"/>
+                <polygon points="40,340 90,300 140,240 190,200 240,180 290,155 340,130 390,100 460,60 460,420 40,420" fill="url(#chartGrad)"/>
+                <circle cx="460" cy="60" r="6" fill="#a855f7" opacity="0.9" filter="url(#glow2)"/>
+                <circle cx="460" cy="60" r="14" fill="#a855f7" opacity="0.12"/>
+              </svg>
 
-            {/* 장식 SVG — 텍스트 뒤 */}
-            <svg style={{ position: 'absolute', top: -60, left: -80, width: '110%', height: '110%', pointerEvents: 'none', zIndex: 0, opacity: 0.55 }} viewBox="0 0 560 480" fill="none">
-              <defs>
-                <linearGradient id="chartGrad" x1="0" y1="380" x2="460" y2="60" gradientUnits="userSpaceOnUse">
-                  <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.2"/>
-                  <stop offset="100%" stopColor="#a855f7" stopOpacity="0.5"/>
-                </linearGradient>
-                <linearGradient id="lineGrad" x1="0" y1="380" x2="460" y2="60" gradientUnits="userSpaceOnUse">
-                  <stop offset="0%" stopColor="#3b82f6"/>
-                  <stop offset="100%" stopColor="#a855f7"/>
-                </linearGradient>
-                <filter id="glow2">
-                  <feGaussianBlur stdDeviation="3" result="blur"/>
-                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-                </filter>
-              </defs>
-
-              {/* 가로 그리드 */}
-              {[80,160,240,320,400].map((y,i) => (
-                <line key={i} x1="0" y1={y} x2="560" y2={y} stroke="#3b82f6" strokeWidth="0.5" strokeOpacity="0.15"/>
-              ))}
-
-              {/* 캔들스틱 */}
-              {[
-                {x:40,  o:340, c:280, h:260, l:360, up:true },
-                {x:90,  o:280, c:310, h:270, l:325, up:false},
-                {x:140, o:310, c:230, h:210, l:320, up:true },
-                {x:190, o:230, c:260, h:215, l:270, up:false},
-                {x:240, o:260, c:190, h:170, l:275, up:true },
-                {x:290, o:190, c:220, h:175, l:230, up:false},
-                {x:340, o:220, c:150, h:130, l:230, up:true },
-                {x:390, o:150, c:170, h:135, l:180, up:false},
-                {x:440, o:170, c:100, h:80,  l:180, up:true },
-              ].map((c, i) => (
-                <g key={i}>
-                  <line x1={c.x} y1={c.h} x2={c.x} y2={c.l} stroke={c.up ? '#22c55e' : '#ef4444'} strokeWidth="1.5" strokeOpacity="0.5"/>
-                  <rect x={c.x-10} y={Math.min(c.o,c.c)} width="20" height={Math.abs(c.o-c.c)||4} rx="2"
-                    fill={c.up ? '#22c55e' : '#ef4444'} fillOpacity="0.25"
-                    stroke={c.up ? '#22c55e' : '#ef4444'} strokeWidth="1" strokeOpacity="0.5"/>
-                </g>
-              ))}
-
-              {/* 상승 추세선 */}
-              <polyline
-                points="40,340 90,300 140,240 190,200 240,180 290,155 340,130 390,100 460,70"
-                stroke="url(#lineGrad)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
-                filter="url(#glow2)"
-              />
-              {/* 면적 채우기 */}
-              <polygon
-                points="40,340 90,300 140,240 190,200 240,180 290,155 340,130 390,100 460,70 460,420 40,420"
-                fill="url(#chartGrad)"
-              />
-              {/* 끝점 글로우 */}
-              <circle cx="460" cy="70" r="6" fill="#a855f7" opacity="0.9" filter="url(#glow2)"/>
-              <circle cx="460" cy="70" r="12" fill="#a855f7" opacity="0.15"/>
-            </svg>
-            <div style={{ position: 'relative', zIndex: 1 }}>
-            <div style={{ ...S.heroBadge, marginBottom: 20, display: 'inline-block' }}>🔥 실시간 코인 수익률 분석 서비스</div>
-            <h1 style={{ ...S.heroH1, textAlign: 'left' }}>
-              코인 시장의 모든 정보,<br />
-              <span style={S.heroRed}>비트라인</span>에서 한눈에
-            </h1>
-            <p style={{ ...S.heroSub, textAlign: 'left' }}>
-              실시간 시세 · 수익률 분석 · 최신 뉴스 · AI 동향 리포트<br />
-              전문 트레이더가 선택하는 암호화폐 정보 플랫폼
-            </p>
-            <div style={{ display: 'flex', gap: 14, justifyContent: 'flex-start', flexWrap: 'wrap' }}>
-              <button style={S.heroBtnPrimary} onClick={() => document.getElementById('apply-form')?.scrollIntoView({ behavior: 'smooth' })}>지금 무료로 시작하기</button>
-            </div>
-            <div style={{ ...S.btcBanner, marginTop: 32, display: 'inline-flex' }}>
-              <span style={{ color: '#f7931a', fontWeight: 800, fontSize: 18 }}>₿</span>
-              <span style={{ fontWeight: 700, fontSize: 14 }}>BTC / KRW</span>
-              <span style={{ fontWeight: 900, fontSize: 20 }}>{fmtKRW(btcLive)}</span>
-              <span style={{ color: btcChg >= 0 ? '#22c55e' : '#ef4444', fontWeight: 700, fontSize: 15 }}>
-                {btcChg >= 0 ? '▲ +' : '▼ '}{Math.abs(btcChg)}%
-              </span>
-              <span style={{ ...S.liveDot }} />
-              <span style={{ color: '#64748b', fontSize: 12 }}>실시간</span>
-            </div>
-            </div>{/* zIndex wrapper 닫기 */}
-          </div>
-
-          {/* 오른쪽 50%: 1~3번 설명 — 오른쪽 끝 정렬 + 장식 배경 */}
-          <div style={{ flex: '0 0 50%', position: 'relative', display: 'flex', flexDirection: 'column', gap: 40, padding: '0 0 0 60px', alignItems: 'flex-end' }}>
-
-            {/* 장식 SVG — 뒤에 깔기 */}
-            <svg style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 0 }} viewBox="0 0 500 500" preserveAspectRatio="xMidYMid slice">
-              <defs>
-                <radialGradient id="rg1" cx="80%" cy="20%" r="50%">
-                  <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.12"/>
-                  <stop offset="100%" stopColor="#3b82f6" stopOpacity="0"/>
-                </radialGradient>
-                <radialGradient id="rg2" cx="70%" cy="80%" r="45%">
-                  <stop offset="0%" stopColor="#6366f1" stopOpacity="0.10"/>
-                  <stop offset="100%" stopColor="#6366f1" stopOpacity="0"/>
-                </radialGradient>
-              </defs>
-              {/* 글로우 원 */}
-              <rect width="500" height="500" fill="url(#rg1)"/>
-              <rect width="500" height="500" fill="url(#rg2)"/>
-              {/* 격자선 */}
-              {[0,1,2,3,4,5,6].map(i => (
-                <line key={`h${i}`} x1="0" y1={i*80} x2="500" y2={i*80} stroke="#3b82f6" strokeWidth="0.4" strokeOpacity="0.12"/>
-              ))}
-              {[0,1,2,3,4,5,6].map(i => (
-                <line key={`v${i}`} x1={i*80} y1="0" x2={i*80} y2="500" stroke="#3b82f6" strokeWidth="0.4" strokeOpacity="0.12"/>
-              ))}
-              {/* 큰 원 테두리 */}
-              <circle cx="420" cy="80" r="120" stroke="#3b82f6" strokeWidth="0.6" strokeOpacity="0.15" fill="none"/>
-              <circle cx="420" cy="80" r="70" stroke="#3b82f6" strokeWidth="0.4" strokeOpacity="0.10" fill="none"/>
-              <circle cx="100" cy="420" r="90" stroke="#6366f1" strokeWidth="0.6" strokeOpacity="0.12" fill="none"/>
-              {/* 대각선 */}
-              <line x1="300" y1="0" x2="500" y2="200" stroke="#3b82f6" strokeWidth="0.5" strokeOpacity="0.10"/>
-              <line x1="350" y1="0" x2="500" y2="150" stroke="#3b82f6" strokeWidth="0.5" strokeOpacity="0.08"/>
-            </svg>
-
-            {[
-              { num: '01', title: '비트라인 VIP 혜택', desc: '비트라인 전문가만의 독점 VIP 정보와 혜택을 지금 바로 무료로 경험하세요.' },
-              { num: '02', title: '전문가 시그널', desc: '비트라인 전문가 2가지 타입 시그널 제공\n(실시간 대응 단타방 / 단체로 대응 스윙방)' },
-              { num: '03', title: '전문가 뉴스방', desc: '비트라인 전문가가 직접 파악한 시장 정보와 핵심 뉴스를 무료로 제공합니다.' },
-            ].map((item) => (
-              <div key={item.num} style={{ position: 'relative', zIndex: 1, borderRight: '4px solid #3b82f6', paddingRight: 24, textAlign: 'right', maxWidth: 360 }}>
-                <div style={{ fontSize: 13, fontWeight: 800, color: '#3b82f6', letterSpacing: 2, marginBottom: 6 }}>{item.num}</div>
-                <div style={{ fontWeight: 800, fontSize: 20, marginBottom: 8, color: '#f1f5f9' }}>{item.title}</div>
-                <div style={{ fontSize: 14, color: '#94a3b8', lineHeight: 1.8, whiteSpace: 'pre-line' }}>{item.desc}</div>
+              <div style={{ position: 'relative', zIndex: 1 }}>
+                <div style={{ ...S.heroBadge, marginBottom: 20, display: 'inline-block' }}>🔥 실시간 코인 수익률 분석 서비스</div>
+                <h1 style={{ ...S.heroH1, textAlign: 'left' }}>
+                  코인 시장의 모든 정보,<br />
+                  <span style={S.heroRed}>비트라인</span>에서 한눈에
+                </h1>
+                <p style={{ ...S.heroSub, textAlign: 'left' }}>
+                  실시간 시세 · 수익률 분석 · 최신 뉴스 · AI 동향 리포트<br />
+                  전문 트레이더가 선택하는 암호화폐 정보 플랫폼
+                </p>
+                <div style={{ display: 'flex', gap: 14, justifyContent: 'flex-start', flexWrap: 'wrap' }}>
+                  <button style={S.heroBtnPrimary} onClick={() => document.getElementById('apply-form')?.scrollIntoView({ behavior: 'smooth' })}>지금 무료로 시작하기</button>
+                </div>
+                <div style={{ ...S.btcBanner, marginTop: 32, display: 'inline-flex' }}>
+                  <span style={{ color: '#f7931a', fontWeight: 800, fontSize: 18 }}>₿</span>
+                  <span style={{ fontWeight: 700, fontSize: 14 }}>BTC / KRW</span>
+                  <span style={{ fontWeight: 900, fontSize: 20 }}>{fmtKRW(btcLive)}</span>
+                  <span style={{ color: btcChg >= 0 ? '#22c55e' : '#ef4444', fontWeight: 700, fontSize: 15 }}>
+                    {btcChg >= 0 ? '▲ +' : '▼ '}{Math.abs(btcChg)}%
+                  </span>
+                  <span style={{ ...S.liveDot }} />
+                  <span style={{ color: '#64748b', fontSize: 12 }}>실시간</span>
+                </div>
               </div>
-            ))}
-          </div>
+            </div>
 
+            {/* 구분선 */}
+            <div style={{ width: 1, alignSelf: 'stretch', background: '#1e293b' }} />
+
+            {/* 오른쪽 50%: 1~3번 설명 */}
+            <div style={{ flex: '0 0 50%', padding: '56px 52px', display: 'flex', flexDirection: 'column', gap: 40, alignItems: 'flex-end' }}>
+              {[
+                { num: '01', title: '비트라인 VIP 혜택', desc: '비트라인 전문가만의 독점 VIP 정보와 혜택을 지금 바로 무료로 경험하세요.' },
+                { num: '02', title: '전문가 시그널', desc: '비트라인 전문가 2가지 타입 시그널 제공\n(실시간 대응 단타방 / 단체로 대응 스윙방)' },
+                { num: '03', title: '전문가 뉴스방', desc: '비트라인 전문가가 직접 파악한 시장 정보와 핵심 뉴스를 무료로 제공합니다.' },
+              ].map((item) => (
+                <div key={item.num} style={{ borderRight: '4px solid #3b82f6', paddingRight: 24, textAlign: 'right', maxWidth: 360 }}>
+                  <div style={{ fontSize: 13, fontWeight: 800, color: '#3b82f6', letterSpacing: 2, marginBottom: 6 }}>{item.num}</div>
+                  <div style={{ fontWeight: 800, fontSize: 20, marginBottom: 8, color: '#f1f5f9' }}>{item.title}</div>
+                  <div style={{ fontSize: 14, color: '#94a3b8', lineHeight: 1.8, whiteSpace: 'pre-line' }}>{item.desc}</div>
+                </div>
+              ))}
+            </div>
+
+          </div>
         </div>
       </section>
 
