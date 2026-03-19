@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import logoSvg from './assets/logo.svg'
 import quantChart from './assets/quant_chart.jpg'
 import withdrawalHistory from './assets/withdrawal_history.jpg'
+import pnlChart from './assets/pnl_chart.jpg'
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, BarChart, Bar
@@ -116,79 +117,13 @@ const PNL_RAW = [
 ]
 
 function PNLChart() {
-  const [tab, setTab] = useState(2) // 기본 30D
-
-  const slices = { 0: PNL_RAW.slice(-1), 1: PNL_RAW.slice(-7), 2: PNL_RAW }
-  const data = slices[tab]
-  const maxV = Math.max(...data.map(d => d.v))
-  const minV = Math.min(...data.map(d => d.v))
-  const maxItem = data.find(d => d.v === maxV)
-  const minItem = data.find(d => d.v === minV)
-
-  const fmtUSD = (v) => '$' + v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-
   return (
     <div style={S.card}>
-      {/* 헤더 */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
+      <div style={{ marginBottom: 16 }}>
         <div style={S.secTitle}><span style={{ ...S.dot, background: '#ef4444' }} />코인 PNL 그래프</div>
-        <div style={{ display: 'flex', gap: 4 }}>
-          {PNL_TABS.map((t, i) => (
-            <button key={t} onClick={() => setTab(i)} style={{
-              padding: '4px 14px', borderRadius: 6, fontSize: 12, fontWeight: 700,
-              cursor: 'pointer', border: '1px solid',
-              background: tab === i ? '#1e293b' : 'transparent',
-              color: tab === i ? '#f1f5f9' : '#475569',
-              borderColor: tab === i ? '#334155' : 'transparent',
-            }}>{t}</button>
-          ))}
-        </div>
       </div>
-
-      {/* 고저점 표시 */}
-      <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 20, marginBottom: 8 }}>
-        <span style={{ fontSize: 12, color: '#ef4444', fontWeight: 700 }}>
-          ▲ {fmtUSD(maxV)} <span style={{ color: '#475569', fontWeight: 400 }}>({maxItem?.d})</span>
-        </span>
-        <span style={{ fontSize: 12, color: '#22c55e', fontWeight: 700 }}>
-          ▼ {fmtUSD(minV)} <span style={{ color: '#475569', fontWeight: 400 }}>({minItem?.d})</span>
-        </span>
-      </div>
-
-      {/* 차트 */}
-      <div style={{ height: 220, minWidth: 0, overflow: 'hidden', background: '#0a1628', borderRadius: 8 }}>
-        <ResponsiveContainer width="100%" height="100%">
-          <AreaChart data={data} margin={{ top: 10, right: 8, left: 0, bottom: 0 }}
-            style={{ background: '#0a1628' }}>
-            <defs>
-              <linearGradient id="pnlGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%"  stopColor="#ef4444" stopOpacity={0.3} />
-                <stop offset="95%" stopColor="#ef4444" stopOpacity={0.02} />
-              </linearGradient>
-            </defs>
-            <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
-            <XAxis dataKey="d" tick={{ fill: '#334155', fontSize: 10 }} tickLine={false} axisLine={{ stroke: '#1e293b' }} />
-            <YAxis
-              tick={{ fill: '#334155', fontSize: 10 }} tickLine={false} axisLine={false}
-              tickFormatter={v => '$' + (v >= 1000 ? (v/1000).toFixed(0)+'K' : v)}
-              width={52}
-            />
-            <Tooltip
-              formatter={v => [fmtUSD(v), 'PNL']}
-              contentStyle={{ background: '#0d1626', border: '1px solid #1e293b', borderRadius: 8 }}
-              labelStyle={{ color: '#64748b', fontSize: 11 }}
-              itemStyle={{ color: '#ef4444', fontWeight: 700 }}
-              cursor={{ stroke: '#334155', strokeWidth: 1 }}
-            />
-            <Area
-              type="monotone" dataKey="v"
-              stroke="#ef4444" strokeWidth={2.2}
-              fill="url(#pnlGrad)"
-              dot={false}
-              activeDot={{ r: 4, fill: '#ef4444', strokeWidth: 0 }}
-            />
-          </AreaChart>
-        </ResponsiveContainer>
+      <div style={{ borderRadius: 10, overflow: 'hidden', border: '1px solid #1e293b' }}>
+        <img src={pnlChart} alt="코인 PNL 그래프" style={{ width: '100%', display: 'block' }} />
       </div>
     </div>
   )
