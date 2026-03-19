@@ -638,7 +638,7 @@ function PromoBanner() {
             <strong style={{ color: 'white' }}>무료 체험으로 확인해 보세요!!</strong>
           </div>
 
-          <button onClick={() => document.getElementById('apply-form')?.scrollIntoView({ behavior: 'smooth' })} style={{
+          <button onClick={() => window.location.href = '/promo'} style={{
             background: 'linear-gradient(135deg, #dc2626, #be123c)',
             color: 'white', border: 'none', padding: '14px 36px',
             borderRadius: 10, fontSize: 16, fontWeight: 900, cursor: 'pointer',
