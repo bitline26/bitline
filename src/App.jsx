@@ -348,7 +348,7 @@ export default function App() {
           <div style={S.promoBanner}>
             <div style={{ fontSize: 13, color: '#94a3b8', marginBottom: 10 }}>🎁 비트라인 혜택</div>
             <div style={{ fontWeight: 800, fontSize: 19, lineHeight: 1.5, marginBottom: 16 }}>
-              전문가 투자 노하우<br />3일 무료 제공
+              전문가 투자 노하우<br />5일 무료 제공
             </div>
             <button
               style={{ ...S.btnRed, width: '100%', padding: '12px 0', fontSize: 15, borderRadius: 9 }}
