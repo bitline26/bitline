@@ -310,7 +310,7 @@ export default function App() {
             </span>
           </a>
           <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-            <button style={S.btnRed}>신청하기</button>
+            <button style={S.btnRed} onClick={() => document.getElementById('apply-form')?.scrollIntoView({ behavior: 'smooth' })}>신청하기</button>
           </div>
         </div>
       </header>
@@ -344,7 +344,7 @@ export default function App() {
             전문 트레이더가 선택하는 암호화폐 정보 플랫폼
           </p>
           <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <button style={S.heroBtnPrimary}>지금 무료로 시작하기</button>
+            <button style={S.heroBtnPrimary} onClick={() => document.getElementById('apply-form')?.scrollIntoView({ behavior: 'smooth' })}>지금 무료로 시작하기</button>
           </div>
 
           {/* 실시간 BTC 배너 */}
@@ -453,7 +453,7 @@ export default function App() {
         <p style={{ color: '#94a3b8', marginBottom: 28, fontSize: 15 }}>
           1만 회원이 선택한 코인 정보 플랫폼 — 비트라인
         </p>
-        <button style={{ ...S.heroBtnPrimary, fontSize: 16, padding: '14px 48px' }}>
+        <button style={{ ...S.heroBtnPrimary, fontSize: 16, padding: '14px 48px' }} onClick={() => document.getElementById('apply-form')?.scrollIntoView({ behavior: 'smooth' })}>
           무료로 시작하기
         </button>
       </section>
@@ -489,7 +489,93 @@ export default function App() {
 // ─────────────────────────────────────────────────────
 //  프로모 배너
 // ─────────────────────────────────────────────────────
+function ConfirmPopup({ onClose }) {
+  const [name, setName] = useState('')
+  const [phone, setPhone] = useState('')
+  const [result, setResult] = useState(null) // null | 'ok' | 'fail'
+
+  const check = () => {
+    const submissions = JSON.parse(localStorage.getItem('bitline_submissions') || '[]')
+    const found = submissions.find(d => d.name === name.trim() && d.phone === phone.trim())
+    setResult(found ? 'ok' : 'fail')
+  }
+
+  return (
+    <div style={{
+      position: 'fixed', inset: 0, zIndex: 9999,
+      background: 'rgba(0,0,0,0.75)', backdropFilter: 'blur(4px)',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+    }} onClick={onClose}>
+      <div style={{
+        background: '#0a1628', border: '1px solid #1e293b', borderRadius: 20,
+        padding: '40px 44px', width: 380, textAlign: 'center',
+        boxShadow: '0 24px 64px rgba(0,0,0,0.7)',
+      }} onClick={e => e.stopPropagation()}>
+
+        {result === null && (
+          <>
+            <div style={{ fontSize: 28, marginBottom: 8 }}>🔐</div>
+            <div style={{ fontWeight: 900, fontSize: 20, marginBottom: 6 }}>신청자 확인</div>
+            <div style={{ color: '#64748b', fontSize: 13, marginBottom: 28 }}>
+              신청 시 등록한 성함과 연락처를 입력해 주세요.
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 20 }}>
+              <input
+                style={{ background: '#060d1f', border: '1px solid #1e293b', borderRadius: 8, padding: '12px 14px', color: '#e2e8f0', fontSize: 14, outline: 'none' }}
+                placeholder="성함"
+                value={name}
+                onChange={e => setName(e.target.value)}
+              />
+              <input
+                style={{ background: '#060d1f', border: '1px solid #1e293b', borderRadius: 8, padding: '12px 14px', color: '#e2e8f0', fontSize: 14, outline: 'none' }}
+                placeholder="연락처 (예: 010-1234-5678)"
+                value={phone}
+                onChange={e => setPhone(e.target.value)}
+              />
+            </div>
+            <button
+              onClick={check}
+              style={{ background: '#dc2626', color: '#fff', border: 'none', borderRadius: 10, padding: '13px 0', width: '100%', fontSize: 15, fontWeight: 800, cursor: 'pointer', marginBottom: 10 }}
+            >확인하기</button>
+            <button onClick={onClose} style={{ background: 'transparent', border: 'none', color: '#475569', fontSize: 13, cursor: 'pointer' }}>닫기</button>
+          </>
+        )}
+
+        {result === 'ok' && (
+          <>
+            <div style={{ fontSize: 48, marginBottom: 16 }}>✅</div>
+            <div style={{ fontWeight: 900, fontSize: 20, marginBottom: 10, color: '#22c55e' }}>확인되었습니다!</div>
+            <div style={{ color: '#94a3b8', fontSize: 14, lineHeight: 1.8, marginBottom: 28 }}>
+              <strong style={{ color: '#f1f5f9' }}>{name}</strong>님, 신청이 정상적으로 등록되어 있습니다.<br />
+              비트라인 전문가가 곧 연락드리겠습니다.
+            </div>
+            <button onClick={onClose} style={{ background: '#dc2626', color: '#fff', border: 'none', borderRadius: 10, padding: '13px 0', width: '100%', fontSize: 15, fontWeight: 800, cursor: 'pointer' }}>닫기</button>
+          </>
+        )}
+
+        {result === 'fail' && (
+          <>
+            <div style={{ fontSize: 48, marginBottom: 16 }}>❌</div>
+            <div style={{ fontWeight: 900, fontSize: 20, marginBottom: 10, color: '#ef4444' }}>일치하는 정보가 없습니다</div>
+            <div style={{ color: '#94a3b8', fontSize: 14, lineHeight: 1.8, marginBottom: 28 }}>
+              입력하신 정보와 일치하는 신청 내역이 없습니다.<br />아직 신청하지 않으셨다면 지금 신청해 주세요.
+            </div>
+            <button
+              onClick={() => { onClose(); setTimeout(() => document.getElementById('apply-form')?.scrollIntoView({ behavior: 'smooth' }), 100) }}
+              style={{ background: '#dc2626', color: '#fff', border: 'none', borderRadius: 10, padding: '13px 0', width: '100%', fontSize: 15, fontWeight: 800, cursor: 'pointer', marginBottom: 10 }}
+            >지금 신청하기</button>
+            <button onClick={() => setResult(null)} style={{ background: 'transparent', border: 'none', color: '#475569', fontSize: 13, cursor: 'pointer' }}>다시 입력</button>
+          </>
+        )}
+
+      </div>
+    </div>
+  )
+}
+
 function PromoBanner() {
+  const [popupOpen, setPopupOpen] = useState(false)
+
   return (
     <div style={{ padding: '0 48px 36px', maxWidth: 1440, margin: '0 auto' }}>
       <div style={{
@@ -551,7 +637,7 @@ function PromoBanner() {
             <strong style={{ color: 'white' }}>무료 체험으로 확인해 보세요!!</strong>
           </div>
 
-          <button style={{
+          <button onClick={() => setPopupOpen(true)} style={{
             background: 'linear-gradient(135deg, #dc2626, #be123c)',
             color: 'white', border: 'none', padding: '14px 36px',
             borderRadius: 10, fontSize: 16, fontWeight: 900, cursor: 'pointer',
@@ -599,6 +685,7 @@ function PromoBanner() {
 
       </div>
     </div>
+    {popupOpen && <ConfirmPopup onClose={() => setPopupOpen(false)} />}
   )
 }
 
