@@ -271,45 +271,42 @@ export default function App() {
       {/* ──── HERO ──── */}
       <section style={S.hero}>
         <div style={S.heroGlow} />
-        <div style={{ maxWidth: 1440, margin: '0 auto', padding: '0 48px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 40, width: '100%' }}>
+        <div style={{ maxWidth: 1440, margin: '0 auto', padding: '0 48px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 60, width: '100%' }}>
 
-          {/* 왼쪽: 겹치는 이미지 3장 */}
-          <div style={{ position: 'relative', width: 340, height: 380, flexShrink: 0 }}>
-            {/* 뒤 - 왼쪽 위 */}
+          {/* 왼쪽: 겹치는 이미지 3장 — 200% 확대 */}
+          <div style={{ position: 'relative', width: 660, height: 740, flexShrink: 0 }}>
             <img src={trade1} alt="수익 이력1" style={{
               position: 'absolute', top: 0, left: 0,
-              width: 240, borderRadius: 14,
-              boxShadow: '0 8px 32px rgba(0,0,0,0.6)',
+              width: 480, borderRadius: 18,
+              boxShadow: '0 16px 48px rgba(0,0,0,0.7)',
               border: '1px solid #1e293b', zIndex: 1,
             }} />
-            {/* 중간 - 오른쪽 위 */}
             <img src={trade2} alt="수익 이력2" style={{
-              position: 'absolute', top: 60, left: 90,
-              width: 240, borderRadius: 14,
-              boxShadow: '0 8px 32px rgba(0,0,0,0.6)',
+              position: 'absolute', top: 120, left: 180,
+              width: 480, borderRadius: 18,
+              boxShadow: '0 16px 48px rgba(0,0,0,0.7)',
               border: '1px solid #1e293b', zIndex: 2,
             }} />
-            {/* 앞 - 왼쪽 아래 */}
             <img src={trade3} alt="수익 이력3" style={{
-              position: 'absolute', top: 155, left: 20,
-              width: 240, borderRadius: 14,
-              boxShadow: '0 8px 32px rgba(0,0,0,0.6)',
+              position: 'absolute', top: 310, left: 40,
+              width: 480, borderRadius: 18,
+              boxShadow: '0 16px 48px rgba(0,0,0,0.7)',
               border: '1px solid #1e293b', zIndex: 3,
             }} />
           </div>
 
-          {/* 오른쪽: 텍스트 */}
-          <div style={{ ...S.heroContent, textAlign: 'right', margin: 0, flex: 1 }}>
+          {/* 오른쪽: 텍스트 (가운데 정렬) */}
+          <div style={{ ...S.heroContent, textAlign: 'center', margin: 0, flex: 1 }}>
             <div style={{ ...S.heroBadge, marginBottom: 20, display: 'inline-block' }}>🔥 실시간 코인 수익률 분석 서비스</div>
-            <h1 style={{ ...S.heroH1, textAlign: 'right' }}>
+            <h1 style={{ ...S.heroH1, textAlign: 'center' }}>
               코인 시장의 모든 정보,<br />
               <span style={S.heroRed}>비트라인</span>에서 한눈에
             </h1>
-            <p style={{ ...S.heroSub, textAlign: 'right' }}>
+            <p style={{ ...S.heroSub, textAlign: 'center' }}>
               실시간 시세 · 수익률 분석 · 최신 뉴스 · AI 동향 리포트<br />
               전문 트레이더가 선택하는 암호화폐 정보 플랫폼
             </p>
-            <div style={{ display: 'flex', gap: 14, justifyContent: 'flex-end', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
               <button style={S.heroBtnPrimary} onClick={() => document.getElementById('apply-form')?.scrollIntoView({ behavior: 'smooth' })}>지금 무료로 시작하기</button>
             </div>
 
