@@ -271,7 +271,7 @@ export default function App() {
       {/* ──── HERO ──── */}
       <section style={S.hero}>
         <div style={S.heroGlow} />
-        <div style={{ maxWidth: 1600, margin: '0 auto', padding: '0 0 0 0', display: 'flex', alignItems: 'center', width: '100%', gap: 0 }}>
+        <div style={{ display: 'flex', alignItems: 'center', width: '100%', gap: 0, justifyContent: 'space-between' }}>
 
           {/* 왼쪽: 겹치는 이미지 3장 — 왼쪽 끝 밀착 */}
           <div style={{ position: 'relative', width: 690, height: 780, flexShrink: 0 }}>
@@ -296,7 +296,7 @@ export default function App() {
           </div>
 
           {/* 가운데: 텍스트 */}
-          <div style={{ ...S.heroContent, textAlign: 'center', margin: '0 auto', flex: 1 }}>
+          <div style={{ ...S.heroContent, textAlign: 'center', margin: '0', flex: 1, padding: '0 40px' }}>
             <div style={{ ...S.heroBadge, marginBottom: 20, display: 'inline-block' }}>🔥 실시간 코인 수익률 분석 서비스</div>
             <h1 style={{ ...S.heroH1, textAlign: 'center' }}>
               코인 시장의 모든 정보,<br />
@@ -321,8 +321,8 @@ export default function App() {
             </div>
           </div>
 
-          {/* 오른쪽: 3가지 혜택 설명 */}
-          <div style={{ flexShrink: 0, width: 420, padding: '0 48px 0 0', display: 'flex', flexDirection: 'column', gap: 42 }}>
+          {/* 오른쪽: 3가지 혜택 설명 — 오른쪽 끝 밀착, 균등 분배 */}
+          <div style={{ flexShrink: 0, width: 420, padding: '0 48px 0 0', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignSelf: 'stretch' }}>
             {[
               {
                 num: '01',
@@ -849,7 +849,7 @@ const S = {
   tickerChip: { display: 'inline-flex', alignItems: 'center', gap: 10, fontSize: 13 },
 
   // hero
-  hero: { padding: '90px 48px 70px', position: 'relative', overflow: 'hidden', background: 'linear-gradient(180deg,#060d1f 0%,#080f22 100%)', display: 'flex', flexDirection: 'column', alignItems: 'center' },
+  hero: { padding: '90px 0 70px', position: 'relative', overflow: 'hidden', background: 'linear-gradient(180deg,#060d1f 0%,#080f22 100%)', display: 'flex', flexDirection: 'column', alignItems: 'stretch' },
   heroGlow: { position: 'absolute', top: -100, left: '50%', transform: 'translateX(-50%)', width: 700, height: 700, background: 'radial-gradient(circle, rgba(220,38,38,.12) 0%, transparent 65%)', pointerEvents: 'none' },
   heroContent: { maxWidth: 720, position: 'relative', width: '100%' },
   heroBadge: { display: 'inline-block', background: 'rgba(220,38,38,.15)', color: '#fca5a5', border: '1px solid rgba(220,38,38,.3)', borderRadius: 20, padding: '5px 16px', fontSize: 12, fontWeight: 600, marginBottom: 20 },
