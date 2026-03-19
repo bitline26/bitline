@@ -3,6 +3,9 @@ import logoSvg from './assets/logo.svg'
 import quantChart from './assets/quant_chart.jpg'
 import withdrawalHistory from './assets/withdrawal_history.jpg'
 import pnlChart from './assets/pnl_chart.jpg'
+import trade1 from './assets/trade1.jpg'
+import trade2 from './assets/trade2.jpg'
+import trade3 from './assets/trade3.jpg'
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, BarChart, Bar
@@ -268,31 +271,61 @@ export default function App() {
       {/* ──── HERO ──── */}
       <section style={S.hero}>
         <div style={S.heroGlow} />
-        <div style={{ ...S.heroContent, textAlign: 'center', margin: '0 auto' }}>
-          <div style={{ ...S.heroBadge, margin: '0 auto 20px' }}>🔥 실시간 코인 수익률 분석 서비스</div>
-          <h1 style={{ ...S.heroH1, textAlign: 'center' }}>
-            코인 시장의 모든 정보,<br />
-            <span style={S.heroRed}>비트라인</span>에서 한눈에
-          </h1>
-          <p style={{ ...S.heroSub, textAlign: 'center' }}>
-            실시간 시세 · 수익률 분석 · 최신 뉴스 · AI 동향 리포트<br />
-            전문 트레이더가 선택하는 암호화폐 정보 플랫폼
-          </p>
-          <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <button style={S.heroBtnPrimary} onClick={() => document.getElementById('apply-form')?.scrollIntoView({ behavior: 'smooth' })}>지금 무료로 시작하기</button>
+        <div style={{ maxWidth: 1440, margin: '0 auto', padding: '0 48px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 40, width: '100%' }}>
+
+          {/* 왼쪽: 겹치는 이미지 3장 */}
+          <div style={{ position: 'relative', width: 340, height: 380, flexShrink: 0 }}>
+            {/* 뒤 - 왼쪽 위 */}
+            <img src={trade1} alt="수익 이력1" style={{
+              position: 'absolute', top: 0, left: 0,
+              width: 240, borderRadius: 14,
+              boxShadow: '0 8px 32px rgba(0,0,0,0.6)',
+              border: '1px solid #1e293b', zIndex: 1,
+            }} />
+            {/* 중간 - 오른쪽 위 */}
+            <img src={trade2} alt="수익 이력2" style={{
+              position: 'absolute', top: 60, left: 90,
+              width: 240, borderRadius: 14,
+              boxShadow: '0 8px 32px rgba(0,0,0,0.6)',
+              border: '1px solid #1e293b', zIndex: 2,
+            }} />
+            {/* 앞 - 왼쪽 아래 */}
+            <img src={trade3} alt="수익 이력3" style={{
+              position: 'absolute', top: 155, left: 20,
+              width: 240, borderRadius: 14,
+              boxShadow: '0 8px 32px rgba(0,0,0,0.6)',
+              border: '1px solid #1e293b', zIndex: 3,
+            }} />
           </div>
 
-          {/* 실시간 BTC 배너 */}
-          <div style={{ ...S.btcBanner, margin: '32px auto 0' }}>
-            <span style={{ color: '#f7931a', fontWeight: 800, fontSize: 18 }}>₿</span>
-            <span style={{ fontWeight: 700, fontSize: 14 }}>BTC / KRW</span>
-            <span style={{ fontWeight: 900, fontSize: 20 }}>{fmtKRW(btcLive)}</span>
-            <span style={{ color: btcChg >= 0 ? '#22c55e' : '#ef4444', fontWeight: 700, fontSize: 15 }}>
-              {btcChg >= 0 ? '▲ +' : '▼ '}{Math.abs(btcChg)}%
-            </span>
-            <span style={{ ...S.liveDot }} />
-            <span style={{ color: '#64748b', fontSize: 12 }}>실시간</span>
+          {/* 오른쪽: 텍스트 */}
+          <div style={{ ...S.heroContent, textAlign: 'right', margin: 0, flex: 1 }}>
+            <div style={{ ...S.heroBadge, marginBottom: 20, display: 'inline-block' }}>🔥 실시간 코인 수익률 분석 서비스</div>
+            <h1 style={{ ...S.heroH1, textAlign: 'right' }}>
+              코인 시장의 모든 정보,<br />
+              <span style={S.heroRed}>비트라인</span>에서 한눈에
+            </h1>
+            <p style={{ ...S.heroSub, textAlign: 'right' }}>
+              실시간 시세 · 수익률 분석 · 최신 뉴스 · AI 동향 리포트<br />
+              전문 트레이더가 선택하는 암호화폐 정보 플랫폼
+            </p>
+            <div style={{ display: 'flex', gap: 14, justifyContent: 'flex-end', flexWrap: 'wrap' }}>
+              <button style={S.heroBtnPrimary} onClick={() => document.getElementById('apply-form')?.scrollIntoView({ behavior: 'smooth' })}>지금 무료로 시작하기</button>
+            </div>
+
+            {/* 실시간 BTC 배너 */}
+            <div style={{ ...S.btcBanner, marginTop: 32, display: 'inline-flex' }}>
+              <span style={{ color: '#f7931a', fontWeight: 800, fontSize: 18 }}>₿</span>
+              <span style={{ fontWeight: 700, fontSize: 14 }}>BTC / KRW</span>
+              <span style={{ fontWeight: 900, fontSize: 20 }}>{fmtKRW(btcLive)}</span>
+              <span style={{ color: btcChg >= 0 ? '#22c55e' : '#ef4444', fontWeight: 700, fontSize: 15 }}>
+                {btcChg >= 0 ? '▲ +' : '▼ '}{Math.abs(btcChg)}%
+              </span>
+              <span style={{ ...S.liveDot }} />
+              <span style={{ color: '#64748b', fontSize: 12 }}>실시간</span>
+            </div>
           </div>
+
         </div>
       </section>
 
