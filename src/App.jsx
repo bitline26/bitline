@@ -697,17 +697,51 @@ function PromoBanner() {
 function DBForm() {
   const [form, setForm] = useState({ name: '', phone: '', agreePrivacy: false, agreeMarketing: false })
   const [done, setDone] = useState(false)
+  const [confirm, setConfirm] = useState(false)
   const set = (k, v) => setForm(p => ({ ...p, [k]: v }))
 
   const submit = (e) => {
     e.preventDefault()
     if (!form.name || !form.phone) { alert('성함과 연락처를 입력해주세요.'); return }
     if (!form.agreePrivacy) { alert('개인정보 수집·이용에 동의해주세요.'); return }
+    setConfirm(true)
+  }
+
+  const confirmSubmit = () => {
     const prev = JSON.parse(localStorage.getItem('bitline_submissions') || '[]')
     const entry = { ...form, id: Date.now(), createdAt: new Date().toLocaleString('ko-KR') }
     localStorage.setItem('bitline_submissions', JSON.stringify([entry, ...prev]))
+    setConfirm(false)
     setDone(true)
   }
+
+  if (confirm) return (
+    <div style={{ position: 'fixed', inset: 0, zIndex: 9999, background: 'rgba(0,0,0,0.75)', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div style={{ background: '#0a1628', border: '1px solid #1e293b', borderRadius: 20, padding: '44px 48px', width: 400, textAlign: 'center', boxShadow: '0 24px 64px rgba(0,0,0,0.7)' }}>
+        <div style={{ fontSize: 32, marginBottom: 14 }}>✋</div>
+        <div style={{ fontWeight: 900, fontSize: 20, marginBottom: 20 }}>입력하신 정보가 맞으신가요?</div>
+        <div style={{ background: '#060d1f', border: '1px solid #1e3a5f', borderRadius: 12, padding: '20px 24px', marginBottom: 28, lineHeight: 2 }}>
+          <div style={{ fontSize: 15 }}>
+            성함 &nbsp;<span style={{ color: '#fbbf24', fontWeight: 800 }}>{form.name}</span>
+          </div>
+          <div style={{ fontSize: 15 }}>
+            번호 &nbsp;<span style={{ color: '#fbbf24', fontWeight: 800 }}>{form.phone}</span>
+          </div>
+          <div style={{ fontSize: 13, color: '#64748b', marginTop: 8 }}>
+            가 맞으신가요??
+          </div>
+        </div>
+        <div style={{ display: 'flex', gap: 10 }}>
+          <button onClick={() => setConfirm(false)} style={{ flex: 1, background: 'transparent', border: '1px solid #1e293b', color: '#94a3b8', borderRadius: 10, padding: '13px 0', fontSize: 15, fontWeight: 700, cursor: 'pointer' }}>
+            다시 입력
+          </button>
+          <button onClick={confirmSubmit} style={{ flex: 2, background: 'linear-gradient(135deg,#dc2626,#991b1b)', color: '#fff', border: 'none', borderRadius: 10, padding: '13px 0', fontSize: 15, fontWeight: 800, cursor: 'pointer', boxShadow: '0 4px 16px rgba(220,38,38,.4)' }}>
+            네, 맞습니다 →
+          </button>
+        </div>
+      </div>
+    </div>
+  )
 
   if (done) return (
     <div style={FS.wrap}>
