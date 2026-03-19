@@ -281,34 +281,8 @@ export default function App() {
           }}>
 
             {/* 왼쪽 50%: 메인 텍스트 */}
-            <div style={{ flex: '0 0 50%', padding: '56px 52px', position: 'relative', overflow: 'hidden' }}>
-              {/* 캔들차트 장식 SVG */}
-              <svg style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none', opacity: 0.45 }} viewBox="0 0 500 420" fill="none" preserveAspectRatio="xMidYMid slice">
-                <defs>
-                  <linearGradient id="chartGrad" x1="0" y1="380" x2="460" y2="40" gradientUnits="userSpaceOnUse">
-                    <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.15"/>
-                    <stop offset="100%" stopColor="#a855f7" stopOpacity="0.35"/>
-                  </linearGradient>
-                  <linearGradient id="lineGrad" x1="0" y1="380" x2="460" y2="40" gradientUnits="userSpaceOnUse">
-                    <stop offset="0%" stopColor="#3b82f6"/>
-                    <stop offset="100%" stopColor="#a855f7"/>
-                  </linearGradient>
-                  <filter id="glow2"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-                </defs>
-                {[80,160,240,320].map((y,i) => <line key={i} x1="0" y1={y} x2="500" y2={y} stroke="#3b82f6" strokeWidth="0.5" strokeOpacity="0.12"/>)}
-                {[{x:40,o:340,c:280,h:260,l:360,up:true},{x:90,o:280,c:310,h:270,l:325,up:false},{x:140,o:310,c:230,h:210,l:320,up:true},{x:190,o:230,c:260,h:215,l:270,up:false},{x:240,o:260,c:190,h:170,l:275,up:true},{x:290,o:190,c:220,h:175,l:230,up:false},{x:340,o:220,c:150,h:130,l:230,up:true},{x:390,o:150,c:170,h:135,l:180,up:false},{x:440,o:170,c:100,h:80,l:180,up:true}].map((c,i)=>(
-                  <g key={i}>
-                    <line x1={c.x} y1={c.h} x2={c.x} y2={c.l} stroke={c.up?'#22c55e':'#ef4444'} strokeWidth="1.5" strokeOpacity="0.45"/>
-                    <rect x={c.x-10} y={Math.min(c.o,c.c)} width="20" height={Math.abs(c.o-c.c)||4} rx="2" fill={c.up?'#22c55e':'#ef4444'} fillOpacity="0.2" stroke={c.up?'#22c55e':'#ef4444'} strokeWidth="1" strokeOpacity="0.45"/>
-                  </g>
-                ))}
-                <polyline points="40,340 90,300 140,240 190,200 240,180 290,155 340,130 390,100 460,60" stroke="url(#lineGrad)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" filter="url(#glow2)"/>
-                <polygon points="40,340 90,300 140,240 190,200 240,180 290,155 340,130 390,100 460,60 460,420 40,420" fill="url(#chartGrad)"/>
-                <circle cx="460" cy="60" r="6" fill="#a855f7" opacity="0.9" filter="url(#glow2)"/>
-                <circle cx="460" cy="60" r="14" fill="#a855f7" opacity="0.12"/>
-              </svg>
-
-              <div style={{ position: 'relative', zIndex: 1 }}>
+            <div style={{ flex: '0 0 50%', padding: '56px 52px' }}>
+                <div>
                 <div style={{ ...S.heroBadge, marginBottom: 20, display: 'inline-block' }}>🔥 실시간 코인 수익률 분석 서비스</div>
                 <h1 style={{ ...S.heroH1, textAlign: 'left' }}>
                   코인 시장의 모든 정보,<br />
