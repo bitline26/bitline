@@ -310,7 +310,7 @@ export default function App() {
             </span>
           </a>
           <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-            <button style={S.btnRed} onClick={() => document.getElementById('promo-banner')?.scrollIntoView({ behavior: 'smooth' })}>신청하기</button>
+            <button style={S.btnRed} onClick={() => document.getElementById('apply-form')?.scrollIntoView({ behavior: 'smooth' })}>신청하기</button>
           </div>
         </div>
       </header>
@@ -344,7 +344,7 @@ export default function App() {
             전문 트레이더가 선택하는 암호화폐 정보 플랫폼
           </p>
           <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <button style={S.heroBtnPrimary} onClick={() => document.getElementById('promo-banner')?.scrollIntoView({ behavior: 'smooth' })}>지금 무료로 시작하기</button>
+            <button style={S.heroBtnPrimary} onClick={() => document.getElementById('apply-form')?.scrollIntoView({ behavior: 'smooth' })}>지금 무료로 시작하기</button>
           </div>
 
           {/* 실시간 BTC 배너 */}
@@ -417,7 +417,7 @@ export default function App() {
             </div>
             <button
               style={{ ...S.btnRed, width: '100%', padding: '12px 0', fontSize: 15, borderRadius: 9 }}
-              onClick={() => document.getElementById('promo-banner')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => document.getElementById('apply-form')?.scrollIntoView({ behavior: 'smooth' })}
             >신청하기</button>
           </div>
 
@@ -453,7 +453,7 @@ export default function App() {
         <p style={{ color: '#94a3b8', marginBottom: 28, fontSize: 15 }}>
           1만 회원이 선택한 코인 정보 플랫폼 — 비트라인
         </p>
-        <button style={{ ...S.heroBtnPrimary, fontSize: 16, padding: '14px 48px' }} onClick={() => document.getElementById('promo-banner')?.scrollIntoView({ behavior: 'smooth' })}>
+        <button style={{ ...S.heroBtnPrimary, fontSize: 16, padding: '14px 48px' }} onClick={() => document.getElementById('apply-form')?.scrollIntoView({ behavior: 'smooth' })}>
           무료로 시작하기
         </button>
       </section>
@@ -561,7 +561,7 @@ function ConfirmPopup({ onClose }) {
               입력하신 정보와 일치하는 신청 내역이 없습니다.<br />아직 신청하지 않으셨다면 지금 신청해 주세요.
             </div>
             <button
-              onClick={() => { onClose(); setTimeout(() => document.getElementById('promo-banner')?.scrollIntoView({ behavior: 'smooth' }), 100) }}
+              onClick={() => { onClose(); setTimeout(() => document.getElementById('apply-form')?.scrollIntoView({ behavior: 'smooth' }), 100) }}
               style={{ background: '#dc2626', color: '#fff', border: 'none', borderRadius: 10, padding: '13px 0', width: '100%', fontSize: 15, fontWeight: 800, cursor: 'pointer', marginBottom: 10 }}
             >지금 신청하기</button>
             <button onClick={() => setResult(null)} style={{ background: 'transparent', border: 'none', color: '#475569', fontSize: 13, cursor: 'pointer' }}>다시 입력</button>
@@ -638,7 +638,7 @@ function PromoBanner() {
             <strong style={{ color: 'white' }}>무료 체험으로 확인해 보세요!!</strong>
           </div>
 
-          <button onClick={() => setPopupOpen(true)} style={{
+          <button onClick={() => document.getElementById('apply-form')?.scrollIntoView({ behavior: 'smooth' })} style={{
             background: 'linear-gradient(135deg, #dc2626, #be123c)',
             color: 'white', border: 'none', padding: '14px 36px',
             borderRadius: 10, fontSize: 16, fontWeight: 900, cursor: 'pointer',
