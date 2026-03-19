@@ -271,32 +271,32 @@ export default function App() {
       {/* ──── HERO ──── */}
       <section style={S.hero}>
         <div style={S.heroGlow} />
-        <div style={{ maxWidth: 1440, margin: '0 auto', padding: '0 48px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 60, width: '100%' }}>
+        <div style={{ maxWidth: 1600, margin: '0 auto', padding: '0 0 0 0', display: 'flex', alignItems: 'center', width: '100%', gap: 0 }}>
 
-          {/* 왼쪽: 겹치는 이미지 3장 — 200% 확대 */}
-          <div style={{ position: 'relative', width: 660, height: 740, flexShrink: 0 }}>
+          {/* 왼쪽: 겹치는 이미지 3장 — 왼쪽 끝 밀착 */}
+          <div style={{ position: 'relative', width: 460, height: 520, flexShrink: 0 }}>
             <img src={trade1} alt="수익 이력1" style={{
               position: 'absolute', top: 0, left: 0,
-              width: 480, borderRadius: 18,
-              boxShadow: '0 16px 48px rgba(0,0,0,0.7)',
+              width: 336, borderRadius: 14,
+              boxShadow: '0 12px 40px rgba(0,0,0,0.7)',
               border: '1px solid #1e293b', zIndex: 1,
             }} />
             <img src={trade2} alt="수익 이력2" style={{
-              position: 'absolute', top: 120, left: 180,
-              width: 480, borderRadius: 18,
-              boxShadow: '0 16px 48px rgba(0,0,0,0.7)',
+              position: 'absolute', top: 84, left: 126,
+              width: 336, borderRadius: 14,
+              boxShadow: '0 12px 40px rgba(0,0,0,0.7)',
               border: '1px solid #1e293b', zIndex: 2,
             }} />
             <img src={trade3} alt="수익 이력3" style={{
-              position: 'absolute', top: 310, left: 40,
-              width: 480, borderRadius: 18,
-              boxShadow: '0 16px 48px rgba(0,0,0,0.7)',
+              position: 'absolute', top: 217, left: 28,
+              width: 336, borderRadius: 14,
+              boxShadow: '0 12px 40px rgba(0,0,0,0.7)',
               border: '1px solid #1e293b', zIndex: 3,
             }} />
           </div>
 
-          {/* 오른쪽: 텍스트 (가운데 정렬) */}
-          <div style={{ ...S.heroContent, textAlign: 'center', margin: 0, flex: 1 }}>
+          {/* 가운데: 텍스트 */}
+          <div style={{ ...S.heroContent, textAlign: 'center', margin: '0 auto', flex: 1 }}>
             <div style={{ ...S.heroBadge, marginBottom: 20, display: 'inline-block' }}>🔥 실시간 코인 수익률 분석 서비스</div>
             <h1 style={{ ...S.heroH1, textAlign: 'center' }}>
               코인 시장의 모든 정보,<br />
@@ -309,8 +309,6 @@ export default function App() {
             <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
               <button style={S.heroBtnPrimary} onClick={() => document.getElementById('apply-form')?.scrollIntoView({ behavior: 'smooth' })}>지금 무료로 시작하기</button>
             </div>
-
-            {/* 실시간 BTC 배너 */}
             <div style={{ ...S.btcBanner, marginTop: 32, display: 'inline-flex' }}>
               <span style={{ color: '#f7931a', fontWeight: 800, fontSize: 18 }}>₿</span>
               <span style={{ fontWeight: 700, fontSize: 14 }}>BTC / KRW</span>
@@ -321,6 +319,36 @@ export default function App() {
               <span style={{ ...S.liveDot }} />
               <span style={{ color: '#64748b', fontSize: 12 }}>실시간</span>
             </div>
+          </div>
+
+          {/* 오른쪽: 3가지 혜택 설명 */}
+          <div style={{ flexShrink: 0, width: 280, padding: '0 40px 0 0', display: 'flex', flexDirection: 'column', gap: 28 }}>
+            {[
+              {
+                num: '01',
+                title: '비트라인 VIP 혜택',
+                desc: '비트라인 전문가만의 독점 VIP 정보와 혜택을 지금 바로 무료로 경험하세요.',
+                color: '#ef4444',
+              },
+              {
+                num: '02',
+                title: '전문가 시그널',
+                desc: '비트라인 전문가 2가지 타입 시그널 제공\n(실시간 대응 단타방 / 단체로 대응 스윙방)',
+                color: '#3b82f6',
+              },
+              {
+                num: '03',
+                title: '전문가 뉴스방',
+                desc: '비트라인 전문가가 직접 파악한 시장 정보와 핵심 뉴스를 무료로 제공합니다.',
+                color: '#22c55e',
+              },
+            ].map((item) => (
+              <div key={item.num} style={{ borderLeft: `3px solid ${item.color}`, paddingLeft: 16 }}>
+                <div style={{ fontSize: 11, fontWeight: 800, color: item.color, letterSpacing: 2, marginBottom: 6 }}>{item.num}</div>
+                <div style={{ fontWeight: 800, fontSize: 15, marginBottom: 8, color: '#f1f5f9' }}>{item.title}</div>
+                <div style={{ fontSize: 13, color: '#64748b', lineHeight: 1.7, whiteSpace: 'pre-line' }}>{item.desc}</div>
+              </div>
+            ))}
           </div>
 
         </div>
