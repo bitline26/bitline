@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Helmet } from 'react-helmet-async'
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from 'recharts'
@@ -212,6 +213,15 @@ export default function AppMobile() {
 
   return (
     <div style={{ minHeight: '100vh', background: '#060d1f', color: '#e2e8f0', fontFamily: "'Segoe UI', system-ui, sans-serif", overflowX: 'hidden', width: '100%' }}>
+      <Helmet>
+        <title>비트라인 | 비트코인 시세 · 코인 시세 · 암호화폐 수익률 분석</title>
+        <meta name="description" content="비트코인 시세, 이더리움 시세, 코인 수익률 분석을 실시간으로 제공하는 비트라인. 전문가 시그널, 급등 알트코인 정보 무료 신청!" />
+        <meta property="og:title" content="비트라인 | 비트코인 시세 · 코인 수익률 분석" />
+        <meta property="og:description" content="비트코인·이더리움·솔라나 실시간 시세, 전문가 급등 코인 시그널 무료 체험!" />
+        <meta property="og:image" content="https://bitline.co.kr/og-image.jpg" />
+        <meta property="og:url" content="https://bitline.co.kr/" />
+        <link rel="canonical" href="https://bitline.co.kr/" />
+      </Helmet>
 
       {/* ──── NAV ──── */}
       <header style={{ position: 'sticky', top: 0, zIndex: 200, background: 'rgba(6,13,31,0.97)', borderBottom: '1px solid #0f172a', backdropFilter: 'blur(12px)' }}>
@@ -357,7 +367,7 @@ export default function AppMobile() {
             <span style={{ fontWeight: 700, fontSize: 14 }}>코인 PNL 그래프</span>
           </div>
           <div style={{ borderRadius: 10, overflow: 'hidden', border: '1px solid #1e293b' }}>
-            <img src={pnlChart} alt="코인 PNL 그래프" style={{ width: '100%', display: 'block' }} />
+            <img src={pnlChart} alt="코인 PNL 그래프" loading="lazy" style={{ width: '100%', display: 'block' }} />
           </div>
         </div>
       </section>
@@ -370,7 +380,7 @@ export default function AppMobile() {
             <span style={{ fontWeight: 700, fontSize: 14 }}>전문가 퀀트 트레이딩 포지션 지표</span>
           </div>
           <div style={{ borderRadius: 10, overflow: 'hidden', border: '1px solid #1e293b' }}>
-            <img src={quantChart} alt="퀀트 트레이딩 포지션 지표" style={{ width: '100%', display: 'block' }} />
+            <img src={quantChart} alt="퀀트 트레이딩 포지션 지표" loading="lazy" style={{ width: '100%', display: 'block' }} />
           </div>
         </div>
       </section>
@@ -383,7 +393,7 @@ export default function AppMobile() {
             <span style={{ fontWeight: 700, fontSize: 14 }}>전문가의 1월 ~ 3월 출금 이력</span>
           </div>
           <div style={{ borderRadius: 8, overflow: 'hidden', border: '1px solid #1e293b' }}>
-            <img src={withdrawalHistory} alt="전문가 출금 이력" style={{ width: '100%', display: 'block' }} />
+            <img src={withdrawalHistory} alt="전문가 출금 이력" loading="lazy" style={{ width: '100%', display: 'block' }} />
           </div>
         </div>
       </section>

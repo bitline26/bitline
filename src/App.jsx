@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Helmet } from 'react-helmet-async'
 import logoSvg from './assets/logo.svg'
 import quantChart from './assets/quant_chart.jpg'
 import withdrawalHistory from './assets/withdrawal_history.jpg'
@@ -225,6 +226,7 @@ export default function App() {
   const [btcLive, setBtcLive] = useState(98420000)
   const [menuOpen, setMenuOpen] = useState(false)
 
+
   useEffect(() => {
     const id = setInterval(() => setBtcLive(p => Math.round(p * (1 + (Math.random() - 0.5) * 0.003))), 2500)
     return () => clearInterval(id)
@@ -237,6 +239,16 @@ export default function App() {
 
   return (
     <div style={S.root}>
+      <Helmet>
+        <title>비트라인 | 비트코인 시세 · 코인 시세 · 암호화폐 수익률 분석 실시간 정보</title>
+        <meta name="description" content="비트코인 시세, 이더리움 시세, 코인 수익률 분석을 실시간으로 제공하는 비트라인. 전문가 시그널, 급등 알트코인 정보, 암호화폐 뉴스까지 한눈에. 무료 VIP 정보 지금 신청!" />
+        <meta property="og:title" content="비트라인 | 비트코인 시세 · 코인 수익률 분석 · 암호화폐 정보" />
+        <meta property="og:description" content="비트코인·이더리움·솔라나 실시간 시세, 전문가 급등 코인 시그널, 수익률 분석을 무료로! 비트라인에서 한눈에 확인하세요." />
+        <meta property="og:image" content="https://bitline.co.kr/og-image.jpg" />
+        <meta property="og:url" content="https://bitline.co.kr/" />
+        <meta name="twitter:image" content="https://bitline.co.kr/og-image.jpg" />
+        <link rel="canonical" href="https://bitline.co.kr/" />
+      </Helmet>
 
       {/* ──── NAV ──── */}
       <header style={S.header}>
@@ -355,6 +367,7 @@ export default function App() {
               <img
                 src={quantChart}
                 alt="전문가 퀀트 트레이딩 포지션 지표"
+                loading="lazy"
                 style={{ width: '100%', display: 'block' }}
               />
             </div>
@@ -373,6 +386,7 @@ export default function App() {
               <img
                 src={withdrawalHistory}
                 alt="전문가의 1월 ~ 3월 출금 이력"
+                loading="lazy"
                 style={{ width: '100%', display: 'block' }}
               />
             </div>

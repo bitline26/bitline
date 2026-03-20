@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Helmet } from 'react-helmet-async'
 
 const NEWS = [
   { tag: '🔥 속보', tagColor: '#ef4444', title: '비트코인, 기관 대량 매수 포착 — 10만 달러 재돌파 초읽기', time: '방금 전', gain: '+8.4%' },
@@ -114,6 +115,15 @@ function PromoDBForm() {
 export default function PromoMobile() {
   return (
     <div style={{ minHeight: '100vh', background: '#060d1f', color: '#e2e8f0', fontFamily: "'Segoe UI', system-ui, sans-serif", overflowX: 'hidden', width: '100%' }}>
+      <Helmet>
+        <title>비트코인 1000% 수익률 목표방 | 비트라인 전문가 시그널 무료 체험</title>
+        <meta name="description" content="비트라인 전문가 급등 코인 시그널! BTC +57.4%, SOL +54.2%, XRP +65.4% 실제 수익. 선착순 100명 5일 무료 VIP 신청하세요." />
+        <meta property="og:title" content="비트코인 1000% 수익률 목표방 | 비트라인" />
+        <meta property="og:description" content="비트라인 전문가 급등 코인 시그널 무료 체험! 실제 수익률 BTC +57%, SOL +54%, XRP +65%." />
+        <meta property="og:image" content="https://bitline.co.kr/og-image.jpg" />
+        <meta property="og:url" content="https://bitline.co.kr/promo" />
+        <link rel="canonical" href="https://bitline.co.kr/promo" />
+      </Helmet>
 
       {/* NAV */}
       <header style={{ background: 'rgba(6,13,31,0.97)', borderBottom: '1px solid #0f172a', position: 'sticky', top: 0, zIndex: 100 }}>
