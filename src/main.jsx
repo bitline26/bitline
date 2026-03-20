@@ -4,10 +4,21 @@ import './index.css'
 import App from './App.jsx'
 import Admin from './Admin.jsx'
 import Promo from './Promo.jsx'
+import AppMobile from './AppMobile.jsx'
+import PromoMobile from './PromoMobile.jsx'
 
 const path = window.location.pathname
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+  || window.innerWidth <= 768
 
-const Page = path === '/admin' ? Admin : path === '/promo' ? Promo : App
+let Page
+if (path === '/admin') {
+  Page = Admin
+} else if (path === '/promo') {
+  Page = isMobile ? PromoMobile : Promo
+} else {
+  Page = isMobile ? AppMobile : App
+}
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
