@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react'
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from 'recharts'
+import pnlChart from './assets/pnl_chart.jpg'
+import quantChart from './assets/quant_chart.jpg'
+import withdrawalHistory from './assets/withdrawal_history.jpg'
 
 // ─────────────────────────────────────────────────────
 //  유틸
@@ -351,7 +354,7 @@ export default function AppMobile() {
             <span style={{ fontWeight: 700, fontSize: 14 }}>코인 PNL 그래프</span>
           </div>
           <div style={{ borderRadius: 10, overflow: 'hidden', border: '1px solid #1e293b' }}>
-            <img src="/src/assets/pnl_chart.jpg" alt="코인 PNL 그래프" style={{ width: '100%', display: 'block' }} />
+            <img src={pnlChart} alt="코인 PNL 그래프" style={{ width: '100%', display: 'block' }} />
           </div>
         </div>
       </section>
@@ -364,7 +367,7 @@ export default function AppMobile() {
             <span style={{ fontWeight: 700, fontSize: 14 }}>전문가 퀀트 트레이딩 포지션 지표</span>
           </div>
           <div style={{ borderRadius: 10, overflow: 'hidden', border: '1px solid #1e293b' }}>
-            <img src="/src/assets/quant_chart.jpg" alt="퀀트 트레이딩 포지션 지표" style={{ width: '100%', display: 'block' }} />
+            <img src={quantChart} alt="퀀트 트레이딩 포지션 지표" style={{ width: '100%', display: 'block' }} />
           </div>
         </div>
       </section>
@@ -377,7 +380,7 @@ export default function AppMobile() {
             <span style={{ fontWeight: 700, fontSize: 14 }}>전문가의 1월 ~ 3월 출금 이력</span>
           </div>
           <div style={{ borderRadius: 8, overflow: 'hidden', border: '1px solid #1e293b' }}>
-            <img src="/src/assets/withdrawal_history.jpg" alt="전문가 출금 이력" style={{ width: '100%', display: 'block' }} />
+            <img src={withdrawalHistory} alt="전문가 출금 이력" style={{ width: '100%', display: 'block' }} />
           </div>
         </div>
       </section>
