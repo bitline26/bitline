@@ -140,8 +140,8 @@ function DBForm() {
 // ─────────────────────────────────────────────────────
 //  코인 차트 (모바일)
 // ─────────────────────────────────────────────────────
-function MiniChart({ coin }) {
-  const [data] = useState(() => genOHLC(coin.base, 24, coin.vol || 0.012))
+function CoinRow({ coin }) {
+  const [data] = useState(() => genOHLC(coin.base, 20, coin.vol || 0.012))
   const [live, setLive] = useState(coin.base)
 
   useEffect(() => {
@@ -153,40 +153,43 @@ function MiniChart({ coin }) {
   const up = chg >= 0
 
   return (
-    <div style={{ background: '#0a1628', border: '1px solid #0f172a', borderRadius: 14, padding: '16px', display: 'flex', flexDirection: 'column', gap: 10 }}>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <div style={{ width: 36, height: 36, borderRadius: '50%', background: (coin.accent || '#3b82f6') + '22', color: coin.accent || '#3b82f6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 15, fontWeight: 900, border: `1px solid ${(coin.accent || '#3b82f6')}44` }}>
-            {coin.icon}
-          </div>
-          <div>
-            <div style={{ fontWeight: 800, fontSize: 14 }}>{coin.name}</div>
-            <div style={{ color: '#64748b', fontSize: 11 }}>{coin.sym}</div>
-          </div>
-        </div>
-        <div style={{ textAlign: 'right' }}>
-          <div style={{ fontWeight: 800, fontSize: 14 }}>{fmtKRW(live)}</div>
-          <div style={{ fontSize: 12, fontWeight: 700, color: up ? '#22c55e' : '#ef4444' }}>
-            {up ? '▲ +' : '▼ '}{Math.abs(chg)}%
-          </div>
-        </div>
+    <div style={{ display: 'flex', alignItems: 'center', padding: '13px 16px', borderBottom: '1px solid #0f172a', gap: 12 }}>
+      {/* 아이콘 */}
+      <div style={{ width: 40, height: 40, borderRadius: '50%', background: (coin.accent || '#3b82f6') + '22', color: coin.accent || '#3b82f6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, fontWeight: 900, border: `1px solid ${(coin.accent || '#3b82f6')}33`, flexShrink: 0 }}>
+        {coin.icon}
       </div>
-      {coin.chart && (
-        <div style={{ height: 60 }}>
+
+      {/* 이름 */}
+      <div style={{ width: 72, flexShrink: 0 }}>
+        <div style={{ fontWeight: 700, fontSize: 14, color: '#f1f5f9' }}>{coin.name}</div>
+        <div style={{ color: '#475569', fontSize: 11, marginTop: 2 }}>{coin.sym}</div>
+      </div>
+
+      {/* 미니 차트 */}
+      <div style={{ flex: 1, height: 40, minWidth: 0 }}>
+        {coin.chart && (
           <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={data} margin={{ top: 2, right: 0, left: 0, bottom: 0 }}>
+            <AreaChart data={data} margin={{ top: 2, right: 0, left: 0, bottom: 2 }}>
               <defs>
                 <linearGradient id={`mg${coin.sym}`} x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor={coin.chart} stopOpacity={0.3} />
+                  <stop offset="5%" stopColor={coin.chart} stopOpacity={0.25} />
                   <stop offset="95%" stopColor={coin.chart} stopOpacity={0} />
                 </linearGradient>
               </defs>
-              <Area type="monotone" dataKey="price" stroke={coin.chart} strokeWidth={2}
+              <Area type="monotone" dataKey="price" stroke={coin.chart} strokeWidth={1.5}
                 fill={`url(#mg${coin.sym})`} dot={false} />
             </AreaChart>
           </ResponsiveContainer>
+        )}
+      </div>
+
+      {/* 가격 + 등락 */}
+      <div style={{ textAlign: 'right', flexShrink: 0 }}>
+        <div style={{ fontWeight: 800, fontSize: 14, color: '#f1f5f9' }}>{fmtKRW(live)}</div>
+        <div style={{ fontSize: 12, fontWeight: 700, marginTop: 2, color: up ? '#22c55e' : '#ef4444' }}>
+          {up ? '▲ +' : '▼ '}{Math.abs(chg)}%
         </div>
-      )}
+      </div>
     </div>
   )
 }
@@ -333,15 +336,15 @@ export default function AppMobile() {
         </div>
       </div>
 
-      {/* ──── 코인 시세 카드 ──── */}
+      {/* ──── 코인 시세 리스트 ──── */}
       <section style={{ padding: '0 16px 28px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
           <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#3b82f6', display: 'inline-block' }} />
           <span style={{ fontWeight: 700, fontSize: 15 }}>실시간 코인 시세</span>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
-          {COINS.slice(0, 6).map((coin) => (
-            <MiniChart key={coin.sym} coin={coin} />
+        <div style={{ background: '#0a1628', border: '1px solid #0f172a', borderRadius: 14, overflow: 'hidden' }}>
+          {COINS.slice(0, 6).map((coin, i) => (
+            <CoinRow key={coin.sym} coin={coin} />
           ))}
         </div>
       </section>
