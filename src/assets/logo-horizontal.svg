@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 52" fill="none">
+
+  <!-- ── 심볼: 상승 차트 곡선 ── -->
+  <path
+    d="M 6 38 C 12 38 14 28 20 23 C 26 18 28 25 35 18 C 39 13 42 10 46 7"
+    stroke="url(#sg)"
+    stroke-width="2.8"
+    stroke-linecap="round"
+    fill="none"
+  />
+
+  <!-- 하단 베이스라인 -->
+  <line x1="6" y1="42" x2="46" y2="42" stroke="#3b82f6" stroke-width="1" opacity="0.35"/>
+
+  <!-- 끝점 글로우 -->
+  <circle cx="46" cy="7" r="3.5" fill="#ef4444" opacity="0.95"/>
+  <circle cx="46" cy="7" r="6.5" fill="#ef4444" opacity="0.18"/>
+
+  <!-- ── 구분선 ── -->
+  <line x1="62" y1="10" x2="62" y2="42" stroke="#1e3a5f" stroke-width="1.2"/>
+
+  <!-- ── 워드마크 BITLINE ── -->
+  <text
+    x="74" y="31"
+    font-family="'Arial Black','Helvetica Neue',Arial,sans-serif"
+    font-size="22"
+    font-weight="900"
+    letter-spacing="2.5"
+    fill="url(#tg)"
+  >BITLINE</text>
+
+  <!-- ── 서브텍스트 비트라인 ── -->
+  <text
+    x="75" y="44"
+    font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif"
+    font-size="9"
+    font-weight="400"
+    letter-spacing="3.5"
+    fill="#64748b"
+  >비트라인</text>
+
+  <defs>
+    <!-- 심볼 그라디언트 -->
+    <linearGradient id="sg" x1="6" y1="38" x2="46" y2="7" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#ef4444"/>
+    </linearGradient>
+    <!-- 텍스트 그라디언트 -->
+    <linearGradient id="tg" x1="74" y1="0" x2="220" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#cbd5e1"/>
+    </linearGradient>
+  </defs>
+
+</svg>
