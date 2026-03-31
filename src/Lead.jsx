@@ -398,7 +398,7 @@ const S = {
   form: { display: 'flex', flexDirection: 'column', gap: 18 },
   field: { display: 'flex', flexDirection: 'column', gap: 6 },
   // 레이블: 작고 보조적 (uppercase + 자간)
-  label: { fontSize: 11, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.08em' },
+  label: { fontSize: 14, fontWeight: 700, color: '#cbd5e1' },
   // 인풋: 크고 선명하게
   input: { background: '#060d1f', border: '1px solid #1e293b', borderRadius: 8, padding: '14px 16px', fontSize: 17, fontWeight: 500, color: '#f1f5f9', width: '100%', transition: 'border-color .15s' },
   checks: { display: 'flex', flexDirection: 'column', gap: 10 },
