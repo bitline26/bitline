@@ -18,7 +18,7 @@ const REVIEWS = [
 ]
 
 // ▼ Apps Script 배포 후 여기에 URL 붙여넣기
-const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE'
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw8lBInlXfIfyGLajUkwB6DmMufRijcSpB8UgqFVO5ojowwWX0-jjz2P1rZBu_65UT5yw/exec'
 
 const EXPERIENCE_OPTIONS = ['없음 (처음이에요)', '6개월 미만', '6개월 ~ 1년', '1년 이상']
 const AMOUNT_OPTIONS = ['100만원 미만', '100 ~ 300만원', '300 ~ 500만원', '500만원 이상']
