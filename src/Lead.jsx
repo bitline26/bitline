@@ -390,7 +390,7 @@ const S = {
   avatar: { width: 34, height: 34, borderRadius: '50%', background: 'linear-gradient(135deg,#1e3a5f,#0f2a4a)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: 13, color: '#93c5fd', flexShrink: 0 },
 
   // 폼
-  formCard: { background: '#0d1829', border: '1px solid #1e293b', borderRadius: 16, padding: '24px 20px', display: 'flex', flexDirection: 'column', gap: 20 },
+  formCard: { background: '#0d1829', border: '1px solid #1e293b', borderRadius: 16, padding: '24px 20px', display: 'flex', flexDirection: 'column', gap: 20, textAlign: 'left' },
   spotsRow: { display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8, background: 'rgba(239,68,68,.07)', border: '1px solid rgba(239,68,68,.18)', borderRadius: 8, padding: '10px 14px' },
   spotsTrack: { width: '100%', height: 3, background: '#1e293b', borderRadius: 2, overflow: 'hidden', marginTop: 2 },
   spotsFill: { height: '100%', background: 'linear-gradient(90deg,#22c55e,#16a34a)', borderRadius: 2, transition: 'width 1s ease' },
@@ -398,7 +398,7 @@ const S = {
   form: { display: 'flex', flexDirection: 'column', gap: 18 },
   field: { display: 'flex', flexDirection: 'column', gap: 6 },
   // 레이블: 작고 보조적 (uppercase + 자간)
-  label: { fontSize: 14, fontWeight: 700, color: '#cbd5e1' },
+  label: { fontSize: 16, fontWeight: 700, color: '#cbd5e1', textAlign: 'left' },
   // 인풋: 크고 선명하게
   input: { background: '#060d1f', border: '1px solid #1e293b', borderRadius: 8, padding: '14px 16px', fontSize: 17, fontWeight: 500, color: '#f1f5f9', width: '100%', transition: 'border-color .15s' },
   checks: { display: 'flex', flexDirection: 'column', gap: 10 },
