@@ -17,8 +17,18 @@ const REVIEWS = [
   { name: '최*희', text: '처음 코인선물 시작했는데 매일 아침 시그널 받으니까 진짜 편해요.', profit: '+92%', date: '2개월 전' },
 ]
 
+// ▼ Apps Script 배포 후 여기에 URL 붙여넣기
+const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE'
+
+const EXPERIENCE_OPTIONS = ['없음 (처음이에요)', '6개월 미만', '6개월 ~ 1년', '1년 이상']
+const AMOUNT_OPTIONS = ['100만원 미만', '100 ~ 300만원', '300 ~ 500만원', '500만원 이상']
+
 export default function Lead() {
-  const [form, setForm] = useState({ name: '', phone: '', agreePrivacy: false, agreeMarketing: false })
+  const [form, setForm] = useState({
+    name: '', phone: '',
+    experience: '', amount: '',
+    agreePrivacy: false, agreeMarketing: false,
+  })
   const [submitted, setSubmitted] = useState(false)
   const [error, setError] = useState('')
   const [spotsLeft, setSpotsLeft] = useState(7)
@@ -43,23 +53,48 @@ export default function Lead() {
     setForm(f => ({ ...f, phone: fmt }))
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault()
     if (!form.name.trim()) { setError('이름을 입력해주세요.'); return }
     if (form.phone.replace(/\D/g, '').length < 10) { setError('올바른 연락처를 입력해주세요.'); return }
+    if (!form.experience) { setError('코인 투자 경험을 선택해주세요.'); return }
+    if (!form.amount) { setError('투자 가능 금액대를 선택해주세요.'); return }
     if (!form.agreePrivacy) { setError('개인정보 수집 동의가 필요합니다.'); return }
     setError('')
+
+    // 로컬 저장
     const list = JSON.parse(localStorage.getItem('bitline_submissions') || '[]')
     list.push({
       id: Date.now(),
       name: form.name.trim(),
       phone: form.phone,
+      experience: form.experience,
+      amount: form.amount,
       agreePrivacy: form.agreePrivacy,
       agreeMarketing: form.agreeMarketing,
       createdAt: new Date().toISOString(),
       source: 'lead',
     })
     localStorage.setItem('bitline_submissions', JSON.stringify(list))
+
+    // 구글 스프레드시트 전송
+    if (APPS_SCRIPT_URL !== 'YOUR_APPS_SCRIPT_URL_HERE') {
+      try {
+        await fetch(APPS_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            full_name: form.name.trim(),
+            phone_number: form.phone,
+            experience: form.experience,
+            amount: form.amount,
+            created_time: new Date().toISOString(),
+          }),
+        })
+      } catch (_) {}
+    }
+
     setSubmitted(true)
   }
 
@@ -265,6 +300,39 @@ export default function Lead() {
                   inputMode="numeric"
                 />
               </div>
+
+              {/* 질문 1: 투자 경험 */}
+              <div style={S.field}>
+                <label style={S.label}>코인 투자 경험 있으신가요?</label>
+                <div style={S.optionGrid}>
+                  {EXPERIENCE_OPTIONS.map(opt => (
+                    <button
+                      key={opt} type="button"
+                      style={{ ...S.optionBtn, ...(form.experience === opt ? S.optionBtnActive : {}) }}
+                      onClick={() => setForm(f => ({ ...f, experience: opt }))}
+                    >
+                      {opt}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* 질문 2: 투자 가능 금액 */}
+              <div style={S.field}>
+                <label style={S.label}>현재 투자 가능한 금액대는?</label>
+                <div style={S.optionGrid}>
+                  {AMOUNT_OPTIONS.map(opt => (
+                    <button
+                      key={opt} type="button"
+                      style={{ ...S.optionBtn, ...(form.amount === opt ? S.optionBtnActive : {}) }}
+                      onClick={() => setForm(f => ({ ...f, amount: opt }))}
+                    >
+                      {opt}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
               <div style={S.checks}>
                 <label style={S.checkLabel}>
                   <input type="checkbox" style={S.check}
@@ -401,6 +469,10 @@ const S = {
   label: { fontSize: 16, fontWeight: 700, color: '#cbd5e1', textAlign: 'left' },
   // 인풋: 크고 선명하게
   input: { background: '#060d1f', border: '1px solid #1e293b', borderRadius: 8, padding: '14px 16px', fontSize: 17, fontWeight: 500, color: '#f1f5f9', width: '100%', transition: 'border-color .15s' },
+  optionGrid: { display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 8 },
+  optionBtn: { background: '#060d1f', border: '1px solid #1e293b', borderRadius: 8, padding: '11px 8px', fontSize: 13, fontWeight: 600, color: '#94a3b8', cursor: 'pointer', transition: 'all .15s', textAlign: 'center' },
+  optionBtnActive: { background: 'rgba(220,38,38,.12)', border: '1px solid #dc2626', color: '#f87171' },
+
   checks: { display: 'flex', flexDirection: 'column', gap: 10 },
   checkLabel: { display: 'flex', alignItems: 'flex-start', gap: 8, fontSize: 12, color: '#64748b', cursor: 'pointer', lineHeight: 1.6 },
   check: { accentColor: '#dc2626', cursor: 'pointer', marginTop: 3, flexShrink: 0, width: 14, height: 14 },
