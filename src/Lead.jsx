@@ -226,63 +226,66 @@ export default function Lead() {
           <h2 style={{ ...S.secTitle, marginBottom: 6 }}>
             지금 신청하면<br /><span style={{ color: '#22c55e' }}>급등 시그널 무료 제공</span>
           </h2>
-          <p style={{ textAlign: 'center', color: '#64748b', fontSize: 13, marginBottom: 24, lineHeight: 1.7 }}>
+          <p style={{ textAlign: 'center', color: '#64748b', fontSize: 13, marginBottom: 28, lineHeight: 1.7 }}>
             코인선물 처음이어도 · 손실 중이어도 OK<br />
             1:1 전문가가 직접 연락드립니다
           </p>
 
-          {/* 잔여 자리 */}
-          <div style={S.spotsRow}>
-            <span style={S.dot} />
-            <span>현재 잔여 상담 자리</span>
-            <strong style={{ color: '#ef4444', marginLeft: 4 }}>{spotsLeft}석</strong>
-            <span style={{ color: '#475569' }}>남음</span>
-            <div style={S.spotsTrack}>
-              <div style={{ ...S.spotsFill, width: `${(spotsLeft / 10) * 100}%` }} />
-            </div>
-          </div>
+          {/* 폼 카드 */}
+          <div style={S.formCard}>
 
-          {/* 폼 */}
-          <form onSubmit={handleSubmit} style={S.form}>
-            <div style={S.field}>
-              <label style={S.label}>이름</label>
-              <input
-                style={S.input}
-                placeholder="홍길동"
-                value={form.name}
-                onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
-              />
+            {/* 잔여 자리 */}
+            <div style={S.spotsRow}>
+              <span style={S.dot} />
+              <span style={{ fontSize: 12, color: '#94a3b8' }}>현재 잔여 상담 자리</span>
+              <strong style={{ color: '#ef4444', fontSize: 13 }}>{spotsLeft}석 남음</strong>
+              <div style={S.spotsTrack}>
+                <div style={{ ...S.spotsFill, width: `${(spotsLeft / 10) * 100}%` }} />
+              </div>
             </div>
-            <div style={S.field}>
-              <label style={S.label}>연락처</label>
-              <input
-                style={S.input}
-                placeholder="010-0000-0000"
-                value={form.phone}
-                onChange={handlePhone}
-                inputMode="numeric"
-              />
-            </div>
-            <div style={S.checks}>
-              <label style={S.checkLabel}>
-                <input type="checkbox" style={S.check}
-                  checked={form.agreePrivacy}
-                  onChange={e => setForm(f => ({ ...f, agreePrivacy: e.target.checked }))} />
-                [필수] 개인정보 수집 및 이용에 동의합니다
-              </label>
-              <label style={S.checkLabel}>
-                <input type="checkbox" style={S.check}
-                  checked={form.agreeMarketing}
-                  onChange={e => setForm(f => ({ ...f, agreeMarketing: e.target.checked }))} />
-                [선택] 마케팅 정보 수신에 동의합니다
-              </label>
-            </div>
-            {error && <div style={S.errBox}>{error}</div>}
-            <button type="submit" style={S.submitBtn}>
-              무료 상담 신청하기 →
-            </button>
-            <p style={S.formNote}>영업일 기준 24시간 이내 전문가가 직접 연락드립니다</p>
-          </form>
+
+            {/* 폼 */}
+            <form onSubmit={handleSubmit} style={S.form}>
+              <div style={S.field}>
+                <label style={S.label}>이름</label>
+                <input
+                  style={S.input}
+                  placeholder="홍길동"
+                  value={form.name}
+                  onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
+                />
+              </div>
+              <div style={S.field}>
+                <label style={S.label}>연락처</label>
+                <input
+                  style={S.input}
+                  placeholder="010-0000-0000"
+                  value={form.phone}
+                  onChange={handlePhone}
+                  inputMode="numeric"
+                />
+              </div>
+              <div style={S.checks}>
+                <label style={S.checkLabel}>
+                  <input type="checkbox" style={S.check}
+                    checked={form.agreePrivacy}
+                    onChange={e => setForm(f => ({ ...f, agreePrivacy: e.target.checked }))} />
+                  [필수] 개인정보 수집 및 이용에 동의합니다
+                </label>
+                <label style={S.checkLabel}>
+                  <input type="checkbox" style={S.check}
+                    checked={form.agreeMarketing}
+                    onChange={e => setForm(f => ({ ...f, agreeMarketing: e.target.checked }))} />
+                  [선택] 마케팅 정보 수신에 동의합니다
+                </label>
+              </div>
+              {error && <div style={S.errBox}>{error}</div>}
+              <button type="submit" style={S.submitBtn}>
+                무료 상담 신청하기 →
+              </button>
+              <p style={S.formNote}>영업일 기준 24시간 이내 전문가가 직접 연락드립니다</p>
+            </form>
+          </div>
         </div>
       </section>
 
@@ -387,19 +390,22 @@ const S = {
   avatar: { width: 34, height: 34, borderRadius: '50%', background: 'linear-gradient(135deg,#1e3a5f,#0f2a4a)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: 13, color: '#93c5fd', flexShrink: 0 },
 
   // 폼
-  spotsRow: { display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 6, background: '#0a1628', border: '1px solid #1e293b', borderRadius: 8, padding: '10px 14px', fontSize: 13, color: '#94a3b8', marginBottom: 18 },
+  formCard: { background: '#0d1829', border: '1px solid #1e293b', borderRadius: 16, padding: '24px 20px', display: 'flex', flexDirection: 'column', gap: 20 },
+  spotsRow: { display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8, background: 'rgba(239,68,68,.07)', border: '1px solid rgba(239,68,68,.18)', borderRadius: 8, padding: '10px 14px' },
   spotsTrack: { width: '100%', height: 3, background: '#1e293b', borderRadius: 2, overflow: 'hidden', marginTop: 2 },
   spotsFill: { height: '100%', background: 'linear-gradient(90deg,#22c55e,#16a34a)', borderRadius: 2, transition: 'width 1s ease' },
 
-  form: { display: 'flex', flexDirection: 'column', gap: 14 },
-  field: { display: 'flex', flexDirection: 'column', gap: 5 },
-  label: { fontSize: 13, fontWeight: 700, color: '#94a3b8' },
-  input: { background: '#0a1628', border: '1px solid #1e293b', borderRadius: 8, padding: '13px 14px', fontSize: 15, color: '#f1f5f9', width: '100%', transition: 'border-color .15s' },
-  checks: { display: 'flex', flexDirection: 'column', gap: 8 },
-  checkLabel: { display: 'flex', alignItems: 'flex-start', gap: 8, fontSize: 12, color: '#64748b', cursor: 'pointer', lineHeight: 1.5 },
-  check: { accentColor: '#dc2626', cursor: 'pointer', marginTop: 2, flexShrink: 0 },
+  form: { display: 'flex', flexDirection: 'column', gap: 18 },
+  field: { display: 'flex', flexDirection: 'column', gap: 6 },
+  // 레이블: 작고 보조적 (uppercase + 자간)
+  label: { fontSize: 11, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.08em' },
+  // 인풋: 크고 선명하게
+  input: { background: '#060d1f', border: '1px solid #1e293b', borderRadius: 8, padding: '14px 16px', fontSize: 17, fontWeight: 500, color: '#f1f5f9', width: '100%', transition: 'border-color .15s' },
+  checks: { display: 'flex', flexDirection: 'column', gap: 10 },
+  checkLabel: { display: 'flex', alignItems: 'flex-start', gap: 8, fontSize: 12, color: '#64748b', cursor: 'pointer', lineHeight: 1.6 },
+  check: { accentColor: '#dc2626', cursor: 'pointer', marginTop: 3, flexShrink: 0, width: 14, height: 14 },
   errBox: { background: 'rgba(239,68,68,.1)', border: '1px solid rgba(239,68,68,.3)', color: '#fca5a5', borderRadius: 8, padding: '10px 14px', fontSize: 13 },
-  submitBtn: { background: 'linear-gradient(135deg,#dc2626,#b91c1c)', color: '#fff', border: 'none', borderRadius: 10, padding: '16px', fontSize: 17, fontWeight: 900, cursor: 'pointer', boxShadow: '0 4px 20px rgba(220,38,38,.4)', width: '100%', letterSpacing: '-.3px' },
+  submitBtn: { background: 'linear-gradient(135deg,#dc2626,#b91c1c)', color: '#fff', border: 'none', borderRadius: 10, padding: '17px', fontSize: 17, fontWeight: 900, cursor: 'pointer', boxShadow: '0 4px 20px rgba(220,38,38,.4)', width: '100%', letterSpacing: '-.3px' },
   formNote: { textAlign: 'center', fontSize: 11, color: '#475569' },
 
   // 푸터
