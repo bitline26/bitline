@@ -153,7 +153,7 @@ export default function Admin() {
             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
               <thead>
                 <tr>
-                  {['#', '신청일시', '이름', '연락처', '개인정보 동의', '마케팅 동의', '관리'].map(h => (
+                  {['#', '신청일시', '이름', '연락처', '유입경로', '개인정보 동의', '마케팅 동의', '관리'].map(h => (
                     <th key={h} style={A.th}>{h}</th>
                   ))}
                 </tr>
@@ -166,6 +166,11 @@ export default function Admin() {
                     <td style={{ ...A.td, fontSize: 12, color: '#64748b', whiteSpace: 'nowrap' }}>{d.createdAt}</td>
                     <td style={{ ...A.td, fontWeight: 700 }}>{d.name}</td>
                     <td style={{ ...A.td }}>{d.phone}</td>
+                    <td style={A.td}>
+                      <span style={{ ...A.badge, background: d.source === 'lead' ? 'rgba(251,191,36,.12)' : 'rgba(59,130,246,.12)', color: d.source === 'lead' ? '#fbbf24' : '#60a5fa' }}>
+                        {d.source === 'lead' ? '광고' : '메인'}
+                      </span>
+                    </td>
                     <td style={A.td}>
                       <span style={{ ...A.badge, background: d.agreePrivacy ? 'rgba(34,197,94,.12)' : 'rgba(239,68,68,.12)', color: d.agreePrivacy ? '#22c55e' : '#ef4444' }}>
                         {d.agreePrivacy ? '동의' : '미동의'}

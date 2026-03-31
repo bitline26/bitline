@@ -7,6 +7,7 @@ import Admin from './Admin.jsx'
 import Promo from './Promo.jsx'
 import AppMobile from './AppMobile.jsx'
 import PromoMobile from './PromoMobile.jsx'
+import Lead from './Lead.jsx'
 
 const path = window.location.pathname
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
@@ -17,6 +18,8 @@ if (path === '/admin') {
   Page = Admin
 } else if (path === '/promo') {
   Page = isMobile ? PromoMobile : Promo
+} else if (path === '/lead') {
+  Page = Lead
 } else {
   Page = isMobile ? AppMobile : App
 }
