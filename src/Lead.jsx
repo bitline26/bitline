@@ -4,8 +4,13 @@ import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'rec
 const GLOBAL_CSS = `
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.5} }
   @keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
-  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
   @keyframes gradShift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+  @keyframes slideInRight { from{opacity:0;transform:translateX(40px)} to{opacity:1;transform:translateX(0)} }
+  @keyframes countUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes scanline { 0%{top:-10%} 100%{top:110%} }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+  @keyframes barGrow { from{height:0} to{height:var(--h)} }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: #060d1f !important; }
   html { scroll-behavior: smooth; }
@@ -13,6 +18,11 @@ const GLOBAL_CSS = `
   input:focus { outline: none; border-color: #dc2626 !important; }
   button:active { transform: scale(.98); }
   ::placeholder { color: #475569; }
+  .signal-card { animation: slideInRight .5s ease both; }
+  .signal-card:nth-child(1) { animation-delay: .1s }
+  .signal-card:nth-child(2) { animation-delay: .4s }
+  .signal-card:nth-child(3) { animation-delay: .7s }
+  .bar { animation: barGrow .8s ease both; }
 `
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw8lBInlXfIfyGLajUkwB6DmMufRijcSpB8UgqFVO5ojowwWX0-jjz2P1rZBu_65UT5yw/exec'
@@ -302,6 +312,89 @@ export default function Lead() {
                 <div style={{ fontSize: 13, color: '#64748b', lineHeight: 1.7 }}>{s.desc}</div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══ 라이브 트레이딩 터미널 비주얼 ══ */}
+      <section style={{ padding: '0', background: '#020810', overflow: 'hidden', position: 'relative' }}>
+        {/* 배경 그리드 */}
+        <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(34,197,94,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(34,197,94,.04) 1px,transparent 1px)', backgroundSize: '40px 40px', pointerEvents: 'none' }} />
+        {/* 스캔라인 */}
+        <div style={{ position: 'absolute', left: 0, right: 0, height: '2px', background: 'linear-gradient(90deg,transparent,rgba(34,197,94,.3),transparent)', animation: 'scanline 4s linear infinite', pointerEvents: 'none' }} />
+
+        <div style={{ maxWidth: 1000, margin: '0 auto', padding: '60px 20px', position: 'relative', zIndex: 1 }}>
+          {/* 터미널 헤더 */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 28 }}>
+            <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#ef4444' }} />
+            <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#fbbf24' }} />
+            <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#22c55e' }} />
+            <div style={{ marginLeft: 8, fontSize: 12, color: '#22c55e', fontFamily: 'monospace', letterSpacing: 2 }}>BITLINE SIGNAL TERMINAL v2.6</div>
+            <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: '#22c55e', fontFamily: 'monospace' }}>
+              <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#22c55e', display: 'inline-block', animation: 'pulse 1s infinite' }} />
+              LIVE
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
+            {/* 왼쪽: 캔들 차트 시뮬레이션 */}
+            <div style={{ flex: '1 1 300px', background: 'rgba(6,13,31,.8)', border: '1px solid rgba(34,197,94,.2)', borderRadius: 12, padding: '20px 16px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 16 }}>
+                <div>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: '#f1f5f9', fontFamily: 'monospace' }}>BTC/USDT</span>
+                  <span style={{ fontSize: 11, color: '#475569', marginLeft: 8 }}>1H</span>
+                </div>
+                <div style={{ fontSize: 18, fontWeight: 900, color: '#22c55e', fontFamily: 'monospace' }}>$87,420</div>
+              </div>
+              {/* 캔들스틱 바 */}
+              <div style={{ display: 'flex', alignItems: 'flex-end', gap: 4, height: 120, marginBottom: 8 }}>
+                {[
+                  { h: 55, bull: false }, { h: 70, bull: true }, { h: 45, bull: false },
+                  { h: 80, bull: true }, { h: 60, bull: true }, { h: 40, bull: false },
+                  { h: 75, bull: true }, { h: 90, bull: true }, { h: 65, bull: false },
+                  { h: 100, bull: true }, { h: 85, bull: true }, { h: 110, bull: true },
+                  { h: 95, bull: false }, { h: 108, bull: true }, { h: 120, bull: true },
+                ].map((b, i) => (
+                  <div key={i} className="bar" style={{ '--h': b.h + 'px', flex: 1, height: b.h, background: b.bull ? '#22c55e' : '#ef4444', borderRadius: 2, opacity: 0.8, animationDelay: `${i * 0.05}s` }} />
+                ))}
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10, color: '#334155', fontFamily: 'monospace' }}>
+                <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span>
+              </div>
+              <div style={{ marginTop: 14, padding: '10px 12px', background: 'rgba(34,197,94,.07)', border: '1px solid rgba(34,197,94,.2)', borderRadius: 8 }}>
+                <div style={{ fontSize: 11, color: '#86efac', fontFamily: 'monospace', fontWeight: 700 }}>▲ 시그널 적중 · +195% (2026 YTD)</div>
+              </div>
+            </div>
+
+            {/* 오른쪽: 실시간 시그널 알림 */}
+            <div style={{ flex: '1 1 260px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+              <div style={{ fontSize: 12, color: '#475569', fontFamily: 'monospace', marginBottom: 4 }}>📡 RECENT SIGNALS</div>
+              {[
+                { time: '08:32', coin: 'BTC', dir: '롱', entry: '$94,200', profit: '+62%', status: '청산완료' },
+                { time: '09:14', coin: 'ETH', dir: '롱', entry: '$2,840', profit: '+38%', status: '청산완료' },
+                { time: '07:55', coin: 'SOL', dir: '숏', entry: '$142.5', profit: '+29%', status: '청산완료' },
+              ].map((s, i) => (
+                <div key={i} className="signal-card" style={{ background: 'rgba(6,13,31,.9)', border: '1px solid rgba(34,197,94,.2)', borderRadius: 10, padding: '12px 14px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <span style={{ fontSize: 11, color: '#475569', fontFamily: 'monospace' }}>{s.time}</span>
+                      <span style={{ fontWeight: 900, fontSize: 13, color: '#f1f5f9' }}>{s.coin}/USDT</span>
+                      <span style={{ fontSize: 11, fontWeight: 700, color: '#22c55e', background: 'rgba(34,197,94,.1)', padding: '2px 7px', borderRadius: 4 }}>{s.dir}</span>
+                    </div>
+                    <span style={{ fontSize: 18, fontWeight: 900, color: '#22c55e' }}>{s.profit}</span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: '#475569', fontFamily: 'monospace' }}>
+                    <span>진입가 {s.entry}</span>
+                    <span style={{ color: '#22c55e' }}>✓ {s.status}</span>
+                  </div>
+                </div>
+              ))}
+              <div style={{ background: 'rgba(220,38,38,.08)', border: '1px solid rgba(220,38,38,.3)', borderRadius: 10, padding: '14px', marginTop: 4 }}>
+                <div style={{ fontSize: 12, color: '#fca5a5', fontWeight: 700, marginBottom: 4 }}>🔔 다음 시그널 예고</div>
+                <div style={{ fontSize: 13, color: '#f1f5f9', fontWeight: 700 }}>오늘 08:00 발송 예정</div>
+                <div style={{ fontSize: 11, color: '#64748b', marginTop: 3 }}>무료 상담 신청 후 수신 가능</div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
