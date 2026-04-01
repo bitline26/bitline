@@ -128,25 +128,19 @@ export default function Lead() {
 
           {/* 오른쪽: 폼 */}
           <div style={S.formBox}>
-            <div style={S.formBoxTop}>
-              <div style={S.formTitle}>전문가 1:1 무료 상담 신청</div>
-              <div style={S.formSub}>코인선물 처음이어도 · 손실 중이어도 OK</div>
-            </div>
-
-            <div style={S.spotsRow}>
-              <span style={S.liveDot} />
-              <span style={{ fontSize: 12, color: '#94a3b8' }}>잔여 상담</span>
-              <strong style={{ color: '#ef4444', fontSize: 13 }}>{spotsLeft}석 남음</strong>
-              <div style={S.spotsTrack}>
-                <div style={{ ...S.spotsFill, width: `${spotsLeft * 10}%` }} />
+            <div style={{ textAlign: 'center', marginBottom: 20 }}>
+              <div style={{ fontSize: 19, fontWeight: 900, color: '#f1f5f9', marginBottom: 6 }}>전문가 1:1 무료 상담</div>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, fontSize: 13, color: '#ef4444', fontWeight: 700 }}>
+                <span style={S.liveDot} />
+                잔여 {spotsLeft}석 · 선착순 마감
               </div>
             </div>
 
-            <form onSubmit={handleSubmit} style={S.form}>
-              <input style={S.inputLarge} placeholder="이름을 입력하세요"
-                value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} />
-              <input style={S.inputLarge} placeholder="010-0000-0000"
-                value={form.phone} onChange={handlePhone} inputMode="numeric" />
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <input style={S.formInput} placeholder="이름" value={form.name}
+                onChange={e => setForm(f => ({ ...f, name: e.target.value }))} />
+              <input style={S.formInput} placeholder="010-0000-0000" value={form.phone}
+                onChange={handlePhone} inputMode="numeric" />
               <label style={S.checkLabel}>
                 <input type="checkbox" style={S.check}
                   checked={form.agreePrivacy}
@@ -155,9 +149,9 @@ export default function Lead() {
               </label>
               {error && <div style={S.errBox}>{error}</div>}
               <button type="submit" style={S.submitBtn} disabled={loading}>
-                {loading ? '신청 중...' : '무료 상담 신청하기 →'}
+                {loading ? '신청 중...' : '무료 상담 신청하기'}
               </button>
-              <p style={S.formNote}>영업일 기준 24시간 이내 전문가가 연락드립니다</p>
+              <p style={S.formNote}>24시간 이내 전문가가 연락드립니다</p>
             </form>
           </div>
 
@@ -266,19 +260,15 @@ export default function Lead() {
           <div style={S.secEyebrow}>선착순 무료 상담 신청</div>
           <h2 style={{ ...S.secTitle, marginBottom: 24 }}>지금 신청하면<br /><span style={{ color: '#22c55e' }}>급등 시그널 무료 제공</span></h2>
           <div style={S.formBox2}>
-            <div style={S.spotsRow}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, fontSize: 13, color: '#ef4444', fontWeight: 700, marginBottom: 16 }}>
               <span style={S.liveDot} />
-              <span style={{ fontSize: 12, color: '#94a3b8' }}>잔여 상담</span>
-              <strong style={{ color: '#ef4444', fontSize: 13 }}>{spotsLeft}석 남음</strong>
-              <div style={S.spotsTrack}>
-                <div style={{ ...S.spotsFill, width: `${spotsLeft * 10}%` }} />
-              </div>
+              잔여 {spotsLeft}석 · 선착순 마감
             </div>
-            <form onSubmit={handleSubmit} style={S.form}>
-              <input style={S.inputLarge} placeholder="이름을 입력하세요"
-                value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} />
-              <input style={S.inputLarge} placeholder="010-0000-0000"
-                value={form.phone} onChange={handlePhone} inputMode="numeric" />
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <input style={S.formInput} placeholder="이름" value={form.name}
+                onChange={e => setForm(f => ({ ...f, name: e.target.value }))} />
+              <input style={S.formInput} placeholder="010-0000-0000" value={form.phone}
+                onChange={handlePhone} inputMode="numeric" />
               <label style={S.checkLabel}>
                 <input type="checkbox" style={S.check}
                   checked={form.agreePrivacy}
@@ -287,9 +277,9 @@ export default function Lead() {
               </label>
               {error && <div style={S.errBox}>{error}</div>}
               <button type="submit" style={S.submitBtn} disabled={loading}>
-                {loading ? '신청 중...' : '무료 상담 신청하기 →'}
+                {loading ? '신청 중...' : '무료 상담 신청하기'}
               </button>
-              <p style={S.formNote}>영업일 기준 24시간 이내 전문가가 연락드립니다</p>
+              <p style={S.formNote}>24시간 이내 전문가가 연락드립니다</p>
             </form>
           </div>
         </div>
@@ -356,8 +346,8 @@ const S = {
   trustRow: { display: 'flex', flexWrap: 'wrap', gap: 8 },
   trustBadge: { background: 'rgba(255,255,255,.06)', color: '#94a3b8', fontSize: 12, padding: '5px 12px', borderRadius: 20, border: '1px solid #1e293b' },
 
-  formBox: { flex: '1 1 320px', background: '#0d1829', border: '2px solid rgba(220,38,38,.5)', borderRadius: 16, padding: '24px 20px', animation: 'fadeUp .6s .1s ease both', boxShadow: '0 8px 40px rgba(220,38,38,.15), 0 8px 40px rgba(0,0,0,.4)' },
-  formBox2: { background: '#0d1829', border: '2px solid rgba(220,38,38,.5)', borderRadius: 16, padding: '24px 20px', boxShadow: '0 8px 40px rgba(220,38,38,.15)' },
+  formBox: { flex: '1 1 320px', background: '#080f20', border: '3px solid #dc2626', borderRadius: 20, padding: '28px 24px', animation: 'fadeUp .6s .1s ease both', boxShadow: '0 0 40px rgba(220,38,38,.2), 0 12px 40px rgba(0,0,0,.5)' },
+  formBox2: { background: '#080f20', border: '3px solid #dc2626', borderRadius: 20, padding: '28px 24px', boxShadow: '0 0 40px rgba(220,38,38,.2)' },
   formBoxTop: { marginBottom: 16 },
   formTitle: { fontSize: 17, fontWeight: 900, color: '#f1f5f9', marginBottom: 4 },
   formSub: { fontSize: 12, color: '#64748b' },
@@ -371,10 +361,11 @@ const S = {
   label: { fontSize: 14, fontWeight: 700, color: '#cbd5e1' },
   input: { background: '#060d1f', border: '1px solid #1e293b', borderRadius: 8, padding: '13px 14px', fontSize: 16, color: '#f1f5f9', width: '100%', transition: 'border-color .15s' },
   inputLarge: { background: '#060d1f', border: '1.5px solid #1e293b', borderRadius: 10, padding: '15px 18px', fontSize: 17, color: '#f1f5f9', width: '100%', transition: 'border-color .15s' },
+  formInput: { background: '#0d1829', border: '1.5px solid #1e3a5f', borderRadius: 12, padding: '16px 18px', fontSize: 17, color: '#f1f5f9', width: '100%', transition: 'border-color .15s' },
   checkLabel: { display: 'flex', alignItems: 'flex-start', gap: 8, fontSize: 12, color: '#64748b', cursor: 'pointer', lineHeight: 1.6 },
   check: { accentColor: '#dc2626', cursor: 'pointer', marginTop: 2, flexShrink: 0 },
   errBox: { background: 'rgba(239,68,68,.1)', border: '1px solid rgba(239,68,68,.3)', color: '#fca5a5', borderRadius: 8, padding: '10px 14px', fontSize: 13 },
-  submitBtn: { background: 'linear-gradient(135deg,#dc2626,#b91c1c)', color: '#fff', border: 'none', borderRadius: 10, padding: '16px', fontSize: 17, fontWeight: 900, cursor: 'pointer', boxShadow: '0 4px 20px rgba(220,38,38,.4)', width: '100%', letterSpacing: '-.3px' },
+  submitBtn: { background: '#dc2626', color: '#fff', border: 'none', borderRadius: 12, padding: '18px', fontSize: 18, fontWeight: 900, cursor: 'pointer', boxShadow: '0 4px 24px rgba(220,38,38,.5)', width: '100%', letterSpacing: '-.3px' },
   formNote: { textAlign: 'center', fontSize: 11, color: '#475569' },
 
   statsBar: { display: 'flex', background: '#080f20', borderTop: '1px solid #0f172a', borderBottom: '1px solid #0f172a' },
