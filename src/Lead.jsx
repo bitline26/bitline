@@ -80,18 +80,14 @@ export default function Lead() {
     // 구글 스프레드시트 전송
     if (APPS_SCRIPT_URL !== 'YOUR_APPS_SCRIPT_URL_HERE') {
       try {
-        await fetch(APPS_SCRIPT_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            full_name: form.name.trim(),
-            phone_number: form.phone,
-            experience: form.experience,
-            amount: form.amount,
-            created_time: new Date().toISOString(),
-          }),
+        const params = new URLSearchParams({
+          full_name: form.name.trim(),
+          phone_number: form.phone,
+          experience: form.experience,
+          amount: form.amount,
+          created_time: new Date().toISOString(),
         })
+        fetch(`${APPS_SCRIPT_URL}?${params.toString()}`, { mode: 'no-cors' })
       } catch (_) {}
     }
 
