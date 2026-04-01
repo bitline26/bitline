@@ -3,6 +3,7 @@ import logoSvg from './assets/logo.svg'
 
 const ADMIN_ID = 'bitline'
 const ADMIN_PW = 'bitline2026!'
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw8lBInlXfIfyGLajUkwB6DmMufRijcSpB8UgqFVO5ojowwWX0-jjz2P1rZBu_65UT5yw/exec'
 
 // ─────────────────────────────────────────────────────
 //  관리자 로그인
@@ -52,9 +53,16 @@ export default function Admin() {
     if (authed) load()
   }, [authed])
 
-  const load = () => {
-    const raw = JSON.parse(localStorage.getItem('bitline_submissions') || '[]')
-    setData(raw)
+  const load = async () => {
+    try {
+      const res = await fetch(`${APPS_SCRIPT_URL}?action=getSubmissions`)
+      const json = await res.json()
+      setData(json.reverse())
+    } catch {
+      // fallback: 로컬
+      const raw = JSON.parse(localStorage.getItem('bitline_submissions') || '[]')
+      setData(raw)
+    }
   }
 
   const logout = () => {
