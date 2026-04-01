@@ -70,10 +70,12 @@ export default function Admin() {
     setAuthed(false)
   }
 
-  const deleteRow = (id) => {
+  const deleteRow = async (id) => {
     if (!confirm('삭제하시겠습니까?')) return
-    const next = data.filter(d => d.id !== id)
-    localStorage.setItem('bitline_submissions', JSON.stringify(next))
+    try {
+      await fetch(`${APPS_SCRIPT_URL}?action=deleteRow&id=${id}`, { mode: 'no-cors' })
+    } catch (_) {}
+    const next = data.filter(d => String(d.id) !== String(id))
     setData(next)
     setSelected(null)
   }
