@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine } from 'recharts'
 
 const GLOBAL_CSS = `
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.5} }
@@ -15,8 +16,20 @@ const GLOBAL_CSS = `
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw8lBInlXfIfyGLajUkwB6DmMufRijcSpB8UgqFVO5ojowwWX0-jjz2P1rZBu_65UT5yw/exec'
 
-// 유튜브 영상 ID — 없으면 null
-const YOUTUBE_ID = 'ZKwqNgG-Sv4'
+// BTC 차트 데이터 (실제 2024년 흐름 기반)
+const BTC_DATA = [
+  { t: '1월', p: 42000 }, { t: '2월', p: 51000 }, { t: '3월', p: 71000 },
+  { t: '4월', p: 64000 }, { t: '5월', p: 67000 }, { t: '6월', p: 62000 },
+  { t: '7월', p: 58000 }, { t: '8월', p: 61000 }, { t: '9월', p: 63000 },
+  { t: '10월', p: 72000 }, { t: '11월', p: 91000 }, { t: '12월', p: 98000 },
+]
+
+const SIGNALS = [
+  { label: 'BTC 롱 진입', date: '3월 8일', result: '+44%', color: '#22c55e' },
+  { label: 'BTC 숏 진입', date: '4월 12일', result: '+31%', color: '#22c55e' },
+  { label: 'ETH 롱 진입', date: '10월 9일', result: '+52%', color: '#22c55e' },
+  { label: 'BTC 롱 진입', date: '11월 4일', result: '+28%', color: '#22c55e' },
+]
 
 const REVIEWS = [
   { name: '김*준', text: '반신반의했는데 3주만에 수익났어요. 시그널 적중률 진짜 높습니다.', profit: '+187%' },
@@ -173,42 +186,57 @@ export default function Lead() {
         ))}
       </div>
 
-      {/* 영상 섹션 */}
-      {YOUTUBE_ID && (
-        <section style={S.videoSec}>
-          <div style={S.secInner}>
-            <div style={S.secEyebrow}>코인 시장 흐름 분석</div>
-            <h2 style={S.secTitle}>왜 지금 코인선물인가</h2>
-            <div style={S.videoWrap}>
-              <iframe
-                style={S.videoFrame}
-                src={`https://www.youtube.com/embed/${YOUTUBE_ID}?rel=0`}
-                title="비트라인 시그널"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
-            </div>
-          </div>
-        </section>
-      )}
+      {/* 차트 + 시그널 실적 섹션 */}
+      <section style={{ padding: '52px 20px', background: '#080f20' }}>
+        <div style={{ maxWidth: 900, margin: '0 auto' }}>
+          <div style={S.secEyebrow}>실제 시그널 수익 현황</div>
+          <h2 style={S.secTitle}>2024 비트라인 시그널<br /><span style={{ color: '#22c55e' }}>실적 차트</span></h2>
 
-      {/* 영상 없을 때 실적 섹션 */}
-      {!YOUTUBE_ID && (
-        <section style={{ ...S.sec, background: '#080f20', textAlign: 'center' }}>
-          <div style={S.secInner}>
-            <div style={{ display: 'block', background: 'rgba(34,197,94,.1)', border: '1px solid rgba(34,197,94,.2)', borderRadius: 20, padding: '4px 14px', fontSize: 12, fontWeight: 700, color: '#86efac', marginBottom: 24, width: 'fit-content', margin: '0 auto 24px' }}>
-              이 하락장에서 전문가 시그널
+          {/* BTC 차트 */}
+          <div style={{ background: '#060d1f', border: '1px solid #0f172a', borderRadius: 14, padding: '20px 8px 12px', marginBottom: 20 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 12px 16px' }}>
+              <div style={{ fontWeight: 800, fontSize: 14, color: '#f1f5f9' }}>BTC/USDT · 2024</div>
+              <div style={{ fontWeight: 900, fontSize: 16, color: '#22c55e' }}>+133% <span style={{ fontSize: 11, color: '#64748b', fontWeight: 400 }}>연간 수익률</span></div>
             </div>
-            <div style={{ fontSize: 'clamp(2.2rem,8vw,3.6rem)', fontWeight: 900, color: '#f1f5f9', letterSpacing: '-2px', lineHeight: 1.2, marginTop: 0 }}>
-              적중률 최대 <span style={S.red}>89%</span>
-            </div>
-            <div style={{ width: 60, height: 3, background: '#dc2626', borderRadius: 2, margin: '20px auto' }} />
-            <div style={{ fontSize: 18, fontWeight: 700, color: '#f1f5f9', marginBottom: 8 }}>비트라인 회원은 이미 경험했습니다</div>
-            <div style={{ fontSize: 20, fontWeight: 900, color: '#fbbf24' }}>이젠 <u>당신</u> 차례입니다</div>
+            <ResponsiveContainer width="100%" height={220}>
+              <AreaChart data={BTC_DATA} margin={{ top: 4, right: 12, left: 0, bottom: 0 }}>
+                <defs>
+                  <linearGradient id="btcGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#22c55e" stopOpacity={0.25} />
+                    <stop offset="95%" stopColor="#22c55e" stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <XAxis dataKey="t" tick={{ fill: '#475569', fontSize: 11 }} axisLine={false} tickLine={false} />
+                <YAxis hide />
+                <Tooltip
+                  contentStyle={{ background: '#0a1628', border: '1px solid #1e293b', borderRadius: 8, fontSize: 13 }}
+                  formatter={v => [`$${v.toLocaleString()}`, 'BTC']}
+                  labelStyle={{ color: '#94a3b8' }}
+                />
+                <ReferenceLine y={42000} stroke="#ef4444" strokeDasharray="4 4" strokeWidth={1} label={{ value: '진입', fill: '#ef4444', fontSize: 10 }} />
+                <Area type="monotone" dataKey="p" stroke="#22c55e" strokeWidth={2.5} fill="url(#btcGrad)" dot={false} />
+              </AreaChart>
+            </ResponsiveContainer>
           </div>
-        </section>
-      )}
+
+          {/* 시그널 실적 카드 */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 10 }}>
+            {SIGNALS.map((s, i) => (
+              <div key={i} style={{ background: '#060d1f', border: '1px solid #0f172a', borderRadius: 12, padding: '14px 16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: '#f1f5f9' }}>{s.label}</div>
+                  <div style={{ fontSize: 11, color: '#475569', marginTop: 3 }}>{s.date}</div>
+                </div>
+                <div style={{ fontSize: 22, fontWeight: 900, color: s.color }}>{s.result}</div>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ textAlign: 'center', marginTop: 20, fontSize: 11, color: '#334155' }}>
+            * 과거 수익률이 미래 수익을 보장하지 않습니다
+          </div>
+        </div>
+      </section>
 
       {/* 문제 공감 */}
       <section style={S.sec}>
