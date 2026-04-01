@@ -16,7 +16,7 @@ const GLOBAL_CSS = `
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw8lBInlXfIfyGLajUkwB6DmMufRijcSpB8UgqFVO5ojowwWX0-jjz2P1rZBu_65UT5yw/exec'
 
 // 유튜브 영상 ID — 없으면 null
-const YOUTUBE_ID = null
+const YOUTUBE_ID = 'ZKwqNgG-Sv4'
 
 const REVIEWS = [
   { name: '김*준', text: '반신반의했는데 3주만에 수익났어요. 시그널 적중률 진짜 높습니다.', profit: '+187%' },
@@ -143,16 +143,10 @@ export default function Lead() {
             </div>
 
             <form onSubmit={handleSubmit} style={S.form}>
-              <div style={S.field}>
-                <label style={S.label}>이름</label>
-                <input style={S.input} placeholder="홍길동"
-                  value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} />
-              </div>
-              <div style={S.field}>
-                <label style={S.label}>연락처</label>
-                <input style={S.input} placeholder="010-0000-0000"
-                  value={form.phone} onChange={handlePhone} inputMode="numeric" />
-              </div>
+              <input style={S.inputLarge} placeholder="이름을 입력하세요"
+                value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} />
+              <input style={S.inputLarge} placeholder="010-0000-0000"
+                value={form.phone} onChange={handlePhone} inputMode="numeric" />
               <label style={S.checkLabel}>
                 <input type="checkbox" style={S.check}
                   checked={form.agreePrivacy}
@@ -189,8 +183,8 @@ export default function Lead() {
       {YOUTUBE_ID && (
         <section style={S.videoSec}>
           <div style={S.secInner}>
-            <div style={S.secEyebrow}>실제 시그널 적중 영상</div>
-            <h2 style={S.secTitle}>직접 확인하세요</h2>
+            <div style={S.secEyebrow}>코인 시장 흐름 분석</div>
+            <h2 style={S.secTitle}>왜 지금 코인선물인가</h2>
             <div style={S.videoWrap}>
               <iframe
                 style={S.videoFrame}
@@ -207,17 +201,17 @@ export default function Lead() {
 
       {/* 영상 없을 때 실적 섹션 */}
       {!YOUTUBE_ID && (
-        <section style={{ ...S.sec, background: '#080f20' }}>
+        <section style={{ ...S.sec, background: '#080f20', textAlign: 'center' }}>
           <div style={S.secInner}>
-            <div style={S.secEyebrow}>이 하락장에서 전문가 시그널</div>
-            <div style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: 'clamp(2.5rem,9vw,4rem)', fontWeight: 900, color: '#f1f5f9', letterSpacing: '-2px' }}>
-                적중률 최대 <span style={S.red}>89%</span>
-              </div>
-              <div style={{ width: 60, height: 3, background: '#dc2626', borderRadius: 2, margin: '20px auto' }} />
-              <div style={{ fontSize: 18, fontWeight: 700, color: '#f1f5f9', marginBottom: 6 }}>비트라인 회원은 이미 경험했습니다</div>
-              <div style={{ fontSize: 20, fontWeight: 900, color: '#fbbf24' }}>이젠 <u>당신</u> 차례입니다</div>
+            <div style={{ display: 'block', background: 'rgba(34,197,94,.1)', border: '1px solid rgba(34,197,94,.2)', borderRadius: 20, padding: '4px 14px', fontSize: 12, fontWeight: 700, color: '#86efac', marginBottom: 24, width: 'fit-content', margin: '0 auto 24px' }}>
+              이 하락장에서 전문가 시그널
             </div>
+            <div style={{ fontSize: 'clamp(2.2rem,8vw,3.6rem)', fontWeight: 900, color: '#f1f5f9', letterSpacing: '-2px', lineHeight: 1.2, marginTop: 0 }}>
+              적중률 최대 <span style={S.red}>89%</span>
+            </div>
+            <div style={{ width: 60, height: 3, background: '#dc2626', borderRadius: 2, margin: '20px auto' }} />
+            <div style={{ fontSize: 18, fontWeight: 700, color: '#f1f5f9', marginBottom: 8 }}>비트라인 회원은 이미 경험했습니다</div>
+            <div style={{ fontSize: 20, fontWeight: 900, color: '#fbbf24' }}>이젠 <u>당신</u> 차례입니다</div>
           </div>
         </section>
       )}
@@ -281,16 +275,10 @@ export default function Lead() {
               </div>
             </div>
             <form onSubmit={handleSubmit} style={S.form}>
-              <div style={S.field}>
-                <label style={S.label}>이름</label>
-                <input style={S.input} placeholder="홍길동"
-                  value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} />
-              </div>
-              <div style={S.field}>
-                <label style={S.label}>연락처</label>
-                <input style={S.input} placeholder="010-0000-0000"
-                  value={form.phone} onChange={handlePhone} inputMode="numeric" />
-              </div>
+              <input style={S.inputLarge} placeholder="이름을 입력하세요"
+                value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} />
+              <input style={S.inputLarge} placeholder="010-0000-0000"
+                value={form.phone} onChange={handlePhone} inputMode="numeric" />
               <label style={S.checkLabel}>
                 <input type="checkbox" style={S.check}
                   checked={form.agreePrivacy}
@@ -368,8 +356,8 @@ const S = {
   trustRow: { display: 'flex', flexWrap: 'wrap', gap: 8 },
   trustBadge: { background: 'rgba(255,255,255,.06)', color: '#94a3b8', fontSize: 12, padding: '5px 12px', borderRadius: 20, border: '1px solid #1e293b' },
 
-  formBox: { flex: '1 1 320px', background: '#0d1829', border: '1px solid #1e293b', borderRadius: 16, padding: '24px 20px', animation: 'fadeUp .6s .1s ease both', boxShadow: '0 8px 40px rgba(0,0,0,.4)' },
-  formBox2: { background: '#0d1829', border: '1px solid #1e293b', borderRadius: 16, padding: '24px 20px' },
+  formBox: { flex: '1 1 320px', background: '#0d1829', border: '2px solid rgba(220,38,38,.5)', borderRadius: 16, padding: '24px 20px', animation: 'fadeUp .6s .1s ease both', boxShadow: '0 8px 40px rgba(220,38,38,.15), 0 8px 40px rgba(0,0,0,.4)' },
+  formBox2: { background: '#0d1829', border: '2px solid rgba(220,38,38,.5)', borderRadius: 16, padding: '24px 20px', boxShadow: '0 8px 40px rgba(220,38,38,.15)' },
   formBoxTop: { marginBottom: 16 },
   formTitle: { fontSize: 17, fontWeight: 900, color: '#f1f5f9', marginBottom: 4 },
   formSub: { fontSize: 12, color: '#64748b' },
@@ -382,6 +370,7 @@ const S = {
   field: { display: 'flex', flexDirection: 'column', gap: 6 },
   label: { fontSize: 14, fontWeight: 700, color: '#cbd5e1' },
   input: { background: '#060d1f', border: '1px solid #1e293b', borderRadius: 8, padding: '13px 14px', fontSize: 16, color: '#f1f5f9', width: '100%', transition: 'border-color .15s' },
+  inputLarge: { background: '#060d1f', border: '1.5px solid #1e293b', borderRadius: 10, padding: '15px 18px', fontSize: 17, color: '#f1f5f9', width: '100%', transition: 'border-color .15s' },
   checkLabel: { display: 'flex', alignItems: 'flex-start', gap: 8, fontSize: 12, color: '#64748b', cursor: 'pointer', lineHeight: 1.6 },
   check: { accentColor: '#dc2626', cursor: 'pointer', marginTop: 2, flexShrink: 0 },
   errBox: { background: 'rgba(239,68,68,.1)', border: '1px solid rgba(239,68,68,.3)', color: '#fca5a5', borderRadius: 8, padding: '10px 14px', fontSize: 13 },
