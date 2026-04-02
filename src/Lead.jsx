@@ -25,7 +25,7 @@ const GLOBAL_CSS = `
   .bar { animation: barGrow .8s ease both; }
 `
 
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw8lBInlXfIfyGLajUkwB6DmMufRijcSpB8UgqFVO5ojowwWX0-jjz2P1rZBu_65UT5yw/exec'
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwafso5tG3wxiZyddkvGS2syjnd6G7Vd7Jz5h16qvXr7SE7IRJ6zmMItdIYM0m2pzgJZw/exec'
 
 // BTC 2026년 실제 흐름 기반 차트 데이터
 const BTC_DATA = [
